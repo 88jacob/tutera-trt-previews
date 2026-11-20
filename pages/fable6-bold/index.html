@@ -146,8 +146,9 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   .top .wrap{height:60px}
   .call .w{display:inline}.logo{height:40px}
   /* hero: wide photo, man in the right third; headline over the open left; form card over the photo's lower edge */
-  .hero{padding-bottom:40px}
-  .hphoto{position:absolute;left:0;right:0;top:0;height:560px}
+  .hero{padding-bottom:40px;background:var(--ink)}
+  /* 2026-11-20 (Jacob): the navy photo hero holds the whole form on desktop; no light-blue strip under it. */
+  .hphoto{position:absolute;left:0;right:0;top:0;bottom:0;height:auto}
   .hphoto img{object-position:60% 30%}
   .hphoto::after{background:linear-gradient(90deg,rgba(21,41,102,.92) 0%,rgba(21,41,102,.7) 34%,rgba(21,41,102,0) 62%)}
   .hero>.wrap{margin-top:0}
@@ -159,7 +160,7 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   .card{padding:20px 24px 16px}
   .ftitle{font-size:26px}.fsub{font-size:16px}
   .fields{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
-  .rate1{justify-content:flex-start;font-size:14.5px;margin-left:4px}
+  .rate1{justify-content:flex-start;font-size:14.5px;margin-left:4px;color:#fff}
 
   .split{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) auto auto minmax(0,1fr);min-height:640px}
   .split .media{display:contents}
