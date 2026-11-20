@@ -291,6 +291,9 @@ footer p+p{margin-top:4px}
 }
 /* keep "a provider prescribes." whole so "A" is not left at a line end */
 .price h2 .ac{display:inline-block}
+.vrows .nw{white-space:nowrap;padding:0}
+.vrows .nw::before{content:none}
+@media (max-width:959px){.vstack{padding:6px 8px 0}.vrows li{font-size:13px;gap:6px}.vrows li span{padding-left:18px}.vsave{margin:0 -8px}}
 </style>
 </head>
 <body>
@@ -352,8 +355,8 @@ footer p+p{margin-top:4px}
       <ul class="vrows">
         <li><span>Testosterone test</span><b class="vfree">Free</b></li>
         <li><span>Consultation</span><b class="vfree">Free</b></li>
-        <li><span>Injections or pellets</span><b>Included</b></li>
-        <li><span>Medication when prescribed</span><b>Included</b></li>
+        <li><span>Injections or pellets, <span class="nw">when prescribed</span></span><b>Included</b></li>
+        <li><span>Specialized provider check-ins</span><b>Included</b></li>
         <li><span>Follow-up labs</span><b>Included</b></li>
       </ul>
       <div class="vtotal"><span class="vflag">If prescribed</span><p class="vprice"><s>$299</s>$149/mo</p></div>
