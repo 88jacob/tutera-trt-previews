@@ -190,6 +190,12 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   footer{padding-bottom:22px}
 }
 
+@media (min-width:860px){
+  .close .media img{justify-self:end;width:min(100%,880px);object-fit:none;object-position:max(100%,-240px) -70px!important;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 32px),linear-gradient(180deg,#000 calc(100% - 130px),transparent calc(100% - 20px));-webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent,#000 32px),linear-gradient(180deg,#000 calc(100% - 130px),transparent calc(100% - 20px));mask-composite:intersect}
+}
+
 @media (min-width:860px) and (max-width:1199px){
   .hphoto{width:40%}
   .hero>.wrap{margin-left:40%;padding:0 32px 0 44px}
@@ -497,8 +503,7 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   <div class="media">
     
     <picture>
-      <source media="(min-width:860px)" srcset="close-garage-flip.jpg" width="1536" height="1152">
-      <img src="close-garage-flip.jpg" width="1536" height="1152" loading="lazy" alt="" style="object-position:54% 30%">
+      <img src="sec-pullup.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 8%">
     </picture>
     <div class="head"><h2>Start in person at 8412 E Shea Blvd.</h2></div>
   </div>

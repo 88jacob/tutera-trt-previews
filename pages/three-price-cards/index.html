@@ -192,6 +192,12 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   .bar{display:none}
   footer{padding-bottom:22px}
 }
+/* Closing pull-up on desktop, adapted from v3/hybrid (Jacob 2026-11-20: "Where is the pull-up bar?"). The photo fills the right column, bleeding to the section's top, right and bottom edges, drawn at its own pixels (object-fit:none, never upscaled; column capped at the file's 880px), source window from y 70 so he is tight on head, shoulders, arms and bar. Navy fades only low down (the last 130px of the section; this section is 640px tall where hybrid's is 801, so hybrid's fixed 600-750px fade would barely show) and over a 32px strip at the edge by the form (mask over the section's navy). The inline 50% 8% is the phone framing, so the desktop position needs !important. */
+@media (min-width:860px){
+  .close .media img{justify-self:end;width:min(100%,880px);object-fit:none;object-position:max(100%,-240px) -70px!important;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 32px),linear-gradient(180deg,#000 calc(100% - 130px),transparent calc(100% - 20px));-webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent,#000 32px),linear-gradient(180deg,#000 calc(100% - 130px),transparent calc(100% - 20px));mask-composite:intersect}
+}
 /* narrow desktops: keep the headline to two lines beside the photo panel */
 @media (min-width:860px) and (max-width:1199px){
   .hphoto{width:40%}
@@ -501,10 +507,9 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 
 <section class="split rev close">
   <div class="media">
-    <!-- PHOTO SLOT: closing form, phone and desktop: drive-03-garage-gym, mirrored (Jacob's picks 2026-11-20, as built in v4/three-price-cards-photos-5). -->
+    <!-- PHOTO SLOT: closing form = sec-pullup.jpg on phone and desktop (Jacob 2026-11-20: "Where is the pull-up bar?"), framed as v3/hybrid's closing. Phone: across the top, 50% 8%. Desktop: see "closing pull-up" CSS. -->
     <picture>
-      <source media="(min-width:860px)" srcset="close-garage-flip.jpg" width="1536" height="1152">
-      <img src="close-garage-flip.jpg" width="1536" height="1152" loading="lazy" alt="" style="object-position:54% 30%">
+      <img src="sec-pullup.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 8%">
     </picture>
     <div class="head"><h2>Check your testosterone levels today.</h2></div>
   </div>
