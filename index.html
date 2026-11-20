@@ -9,7 +9,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
 body{font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#1d2433;background:#eef0f4}
-button,a{font:inherit}
+button,a{font:inherit;-webkit-tap-highlight-color:transparent}
 .app{display:flex;height:100vh;height:100dvh}
 aside{width:290px;flex:none;background:#fff;border-right:1px solid #dde1e8;display:flex;flex-direction:column;overflow-y:auto}
 .head{padding:20px 18px 12px}
@@ -57,14 +57,41 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
 .cmp[hidden],.flip[hidden]{display:none}
 .col{display:flex;flex-direction:column;min-width:0;flex:none}
 .col[hidden]{display:none}
-.cap{font-size:13px;font-weight:700;color:#5b6475;margin:0 0 6px;height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cap{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:#5b6475;margin:0 0 6px;height:30px;white-space:nowrap;overflow:hidden}
+.cap .cl{overflow:hidden;text-overflow:ellipsis}
+.pk{border:1px solid #b8860b;border-radius:8px;background:#fff;color:#8a6100;padding:6px 12px;cursor:pointer;font-weight:700;white-space:nowrap}
+.pk:hover{background:#fff8e6}
+.pk[aria-pressed="true"]{background:#d99a00;border-color:#d99a00;color:#fff}
+.pk:disabled{opacity:.6;cursor:not-allowed}
+.pk[hidden]{display:none}
+.cap .pk{padding:4px 12px;font-size:13px}
+.pm{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:#d99a00;color:#fff;font-size:11px;font-weight:700;vertical-align:middle}
+.pm[hidden]{display:none}
+.menu li.picked a{box-shadow:inset 0 0 0 2px #d99a00}
+.sub .sp{color:#8a6100;font-weight:600;font-size:13px}
+.keep{display:flex;gap:12px;align-items:center;width:100%;padding:8px;border:1px dashed #c9cfda;border-radius:10px;background:#fff;color:inherit;text-align:left;cursor:pointer}
+.keep:hover{background:#f3f5f8}
+.keep .kb{width:64px;height:40px;border-radius:6px;background:#f3f5f8;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5b6475;flex:none}
+.keep[aria-pressed="true"]{border:2px solid #d99a00;background:#fff8e6}
+.mypicks{position:sticky;top:0;z-index:2;background:#fff;border-bottom:1px solid #dde1e8;padding:10px 10px 8px}
+#mypicks{width:100%;display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border:1px solid #d99a00;border-radius:10px;background:#fff8e6;color:#6b4b00;font-weight:700;cursor:pointer}
+#mppanel{margin-top:8px}
+#mppanel[hidden]{display:none}
+#mplist{list-style:none;margin:0 0 8px;padding:0;font-size:13px}
+#mplist li{padding:5px 2px;border-bottom:1px solid #eef0f4}
+#mplist b{display:block}
+#mplist .none{color:#7a8394}
+.mprow{display:flex;align-items:center;gap:12px}
+#mpcopy{border:0;border-radius:8px;background:#1d2433;color:#fff;padding:7px 12px;font-weight:600;cursor:pointer}
+.linkbtn{border:0;background:none;color:#b42318;padding:0;cursor:pointer;text-decoration:underline;font-size:13px}
+.mpnote{margin:6px 0 0;font-size:12px;color:#5b6475}
 .cap[hidden]{display:none}
 .stage.two{gap:16px}
 .mbar{display:none}
 /* Narrow screens (an actual phone): the menu is the home screen; a chosen page opens full-screen. */
 @media (max-width:899px){
   .app{display:block;height:auto}
-  aside{width:auto;border:0;min-height:100vh;min-height:100dvh}
+  aside{width:auto;border:0;min-height:100vh;min-height:100dvh;overflow:visible}
   .menu img{width:72px;height:96px}
   .menu a{padding:10px}
   main{display:none}
@@ -77,13 +104,19 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
   .mbar button{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:6px;padding:3px 10px;cursor:pointer}
   .stage{padding:0}
   .col{width:100%;height:100%}
-  .cap{display:none}
+  .stage{flex-direction:column}
+  .cap{margin:0;padding:6px 10px;height:auto;background:#f7f8fa;border-bottom:1px solid #dde1e8}
+  .cap[hidden]{display:none}
+  .frame{flex:1;min-height:0}
+  .mbar .pk{padding:3px 8px;font-size:13px;background:transparent;border-color:#f0c050;color:#f0c050}
+  .mbar .pk[aria-pressed="true"]{background:#d99a00;border-color:#d99a00;color:#fff}
   .mbar .flip{display:inline-flex;border:1px solid rgba(255,255,255,.35);border-radius:6px;overflow:hidden}
   .mbar .flip button{border:0;border-radius:0;padding:3px 8px}
   .mbar .flip button[aria-pressed="true"]{background:#fff;color:#1d2433}
+  .mbar .flip[hidden],.mbar .cmp[hidden],.mbar .pk[hidden]{display:none}
   .mbar .cmp{padding:3px 8px;font-size:13px;border-color:#7fd1a5;color:#7fd1a5;background:transparent}
   .mbar .cmp[aria-pressed="true"]{background:#1f7a4d;color:#fff}
-  .frame{border:0;border-radius:0;box-shadow:none;width:100%!important;height:100%!important}
+  .frame{border:0;border-radius:0;box-shadow:none;width:100%!important;height:auto!important}
   .frame iframe{width:100%!important;height:100%!important;transform:none!important}
 }
 </style>
@@ -91,6 +124,14 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
 <body>
 <div class="app">
   <aside>
+    <div class="mypicks">
+      <button type="button" id="mypicks" aria-expanded="false" aria-controls="mppanel"><span>My picks</span><span id="mpcount"></span></button>
+      <div id="mppanel" hidden>
+        <ul id="mplist"></ul>
+        <div class="mprow"><button type="button" id="mpcopy">Copy my picks</button><button type="button" class="linkbtn" id="mpclear">Clear all</button></div>
+        <p class="mpnote" id="mpnote">Saved in this browser. Copy and send to share.</p>
+      </div>
+    </div>
     <div class="head">
       <h1>Tutera TRT landing pages: previews</h1>
       <p class="note">Draft previews. Forms and phone numbers are placeholders.</p>
@@ -104,10 +145,11 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
   </aside>
   <main>
     <div class="mbar">
-      <a href="#" id="back">&larr; Back to all pages</a>
+      <a href="#" id="back">&larr; All pages</a>
       <span class="title" id="mtitle"></span>
       <button type="button" class="cmp" id="mcmp" aria-pressed="false" hidden>Compare</button>
       <span class="flip" id="flip" role="group" aria-label="Which page" hidden><button type="button" id="flipA" aria-pressed="true">Panel</button><button type="button" id="flipB" aria-pressed="false">Live</button></span>
+      <button type="button" class="pk" id="mpick" aria-pressed="false" hidden>Pick</button>
       <button type="button" id="mprev" aria-label="Previous page">&lsaquo;</button>
       <button type="button" id="mnext" aria-label="Next page">&rsaquo;</button>
     </div>
@@ -119,14 +161,15 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
       </span>
       <button type="button" class="cmp" id="cmp" aria-pressed="false" hidden>Compare with live</button>
       <span class="pair">
+        <button type="button" class="pk" id="pick" aria-pressed="false" hidden>Pick this one</button>
         <button type="button" class="btn" id="prev">&larr; Prev</button>
         <button type="button" class="btn" id="next">Next &rarr;</button>
       </span>
       <a class="open" id="open" href="#" target="_blank" rel="noopener">Open this page on its own &nearr;</a>
     </div>
     <div class="stage" id="stage">
-      <div class="col" id="colA"><p class="cap" id="capA" hidden></p><div class="frame" id="frame"><iframe id="view" title="Page preview"></iframe></div></div>
-      <div class="col" id="colB" hidden><p class="cap" id="capB"></p><div class="frame" id="frame2"><iframe id="view2" title="Live top pick"></iframe></div></div>
+      <div class="col" id="colA"><p class="cap" id="capA" hidden><span class="cl" id="capAl"></span><button type="button" class="pk" id="pickA" aria-pressed="false">Pick panel</button></p><div class="frame" id="frame"><iframe id="view" title="Page preview"></iframe></div></div>
+      <div class="col" id="colB" hidden><p class="cap" id="capB"><span class="cl" id="capBl"></span><button type="button" class="pk" id="pickB" aria-pressed="false">Pick live</button></p><div class="frame" id="frame2"><iframe id="view2" title="Live top pick"></iframe></div></div>
     </div>
   </main>
 </div>
@@ -157,11 +200,15 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     {key:'dark-value-stack',pick:'dark-value-stack',panel:'dark-value-stack-panel'},
     {key:'gameday',pick:'gameday',panel:'gameday-panel',sets:false}
   ];
+  // Pick groups: each group lets Jacob choose one option per top pick (or keep the live page). A later group
+  // (e.g. copy options) is one more entry here with its own families; picks are stored per group + family.
+  var GROUPS=[{key:'photos',label:'Photos',fams:PHOTO_FAMILIES}];
   PAGES.forEach(function(p){if(!p.top)p.rest=true});
   PHOTO_FAMILIES.forEach(function(f){
     var pick=PAGES.filter(function(p){return p.id===f.pick})[0];f.name=pick.name;
-    if(f.panel)PAGES.push({id:'photos/'+f.panel,name:'Panel pick',fam:f.key,panel:f.panel,live:f.pick,full:f.name+' \u00b7 Panel pick'});
-    if(f.sets!==false)SETS.forEach(function(setName,k){PAGES.push({id:'photos/'+f.key+'-'+(k+1),name:'Set '+(k+1)+': '+setName,fam:f.key,full:f.name+' \u00b7 Set '+(k+1)+': '+setName})});
+    f.grp='photos';
+    if(f.panel)PAGES.push({id:'photos/'+f.panel,name:'Panel pick',fam:f.key,grp:'photos',short:'Panel',panel:f.panel,live:f.pick,full:f.name+' \u00b7 Panel pick'});
+    if(f.sets!==false)SETS.forEach(function(setName,k){PAGES.push({id:'photos/'+f.key+'-'+(k+1),name:'Set '+(k+1)+': '+setName,fam:f.key,grp:'photos',short:'Set '+(k+1),full:f.name+' \u00b7 Set '+(k+1)+': '+setName})});
   });
   var $=function(id){return document.getElementById(id)};
   var menu=document.querySelector('aside'),rest=$('menu-rest'),more=$('more'),photos=$('menu-photos'),morePhotos=$('more-photos'),view=$('view'),frame=$('frame'),stage=$('stage'),view2=$('view2'),frame2=$('frame2');
@@ -171,16 +218,77 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
 
   PHOTO_FAMILIES.forEach(function(f){
     var b=document.createElement('button');b.type='button';b.className='sub';b.id='sub-'+f.key;b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls','fam-'+f.key);
-    b.innerHTML='<span class="chev" aria-hidden="true">&#9656;</span> '+f.name;
+    b.innerHTML='<span class="chev" aria-hidden="true">&#9656;</span> <span>'+f.name+'<span class="sp" id="sp-'+f.grp+'-'+f.key+'"></span></span>';
     var ul=document.createElement('ul');ul.className='menu sets';ul.id='fam-'+f.key;ul.hidden=true;
     b.onclick=function(){openFam(f.key,ul.hidden)};
     photos.appendChild(b);photos.appendChild(ul);
   });
   PAGES.forEach(function(p){
     var li=document.createElement('li');if(p.panel)li.className='panel';
-    li.innerHTML='<a href="#'+p.id+'"><img src="thumbs/'+p.id+'.jpg" alt="" loading="lazy" width="64" height="80"><span class="n">'+p.name+(p.panel?' <span class="tag">panel</span>':'')+'</span></a>';
+    li.innerHTML='<a href="#'+p.id+'"><img src="thumbs/'+p.id+'.jpg" alt="" loading="lazy" width="64" height="80"><span class="n">'+p.name+(p.panel?' <span class="tag">panel</span>':'')+(p.grp?' <span class="pm" hidden>picked &#10003;</span>':'')+'</span></a>';
+    p.li=li;
     $(p.top?'menu-top':p.rest?'menu-rest':'fam-'+p.fam).appendChild(li);
   });
+  PHOTO_FAMILIES.forEach(function(f){
+    var li=document.createElement('li'),k=document.createElement('button');k.type='button';k.className='keep';k.setAttribute('aria-pressed','false');
+    k.innerHTML='<span class="kb">live</span><span class="n">Keep live (no change)</span>';k.id='keep-'+f.grp+'-'+f.key;
+    k.onclick=function(){setPick(f.grp,f.key,'live',true)};li.appendChild(k);$('fam-'+f.key).appendChild(li);
+  });
+
+  // ---- picks (saved in this browser only)
+  var PK='tutera_picks_v1',canSave=false,picks={};
+  try{localStorage.setItem(PK+'_t','1');localStorage.removeItem(PK+'_t');canSave=true;picks=JSON.parse(localStorage.getItem(PK)||'{}')||{}}catch(e){canSave=false;picks={}}
+  function famOf(g,key){var G=GROUPS.filter(function(x){return x.key===g})[0];return G&&G.fams.filter(function(f){return f.key===key})[0]}
+  function byId(id){return PAGES.filter(function(q){return q.id===id})[0]}
+  function getPick(g,key){return picks[g+':'+key]}
+  function setPick(g,key,val,toggleOff){
+    if(!canSave)return;
+    var k=g+':'+key;if(toggleOff&&picks[k]===val)delete picks[k];else picks[k]=val;
+    try{localStorage.setItem(PK,JSON.stringify(picks))}catch(e){}
+    refreshPicks();
+  }
+  function label(val,shortForm){if(!val)return '';if(val==='live')return 'keep live';var q=byId(val);return q?(shortForm?q.short:q.name):''}
+  function summary(){
+    var lines=[];
+    PAGES.filter(function(p){return p.top}).forEach(function(t){
+      var parts=[];GROUPS.forEach(function(G){var f=G.fams.filter(function(x){return x.pick===t.id})[0];if(f)parts.push(G.label+': '+(label(getPick(G.key,f.key))||'not chosen yet'))});
+      lines.push(t.name+' — '+(parts.length?parts.join('; '):'no options to pick'));
+    });
+    return lines;
+  }
+  function refreshPicks(){
+    var done=0,total=0;
+    GROUPS.forEach(function(G){G.fams.forEach(function(f){total++;var v=getPick(G.key,f.key);if(v)done++;
+      var sp=$('sp-'+G.key+'-'+f.key);if(sp)sp.textContent=v?' · picked: '+label(v,true):'';
+      var kb=$('keep-'+G.key+'-'+f.key);if(kb)kb.setAttribute('aria-pressed',v==='live')})});
+    PAGES.forEach(function(p){if(!p.grp)return;var on=getPick(p.grp,p.fam)===p.id;p.li.classList.toggle('picked',on);p.li.querySelector('.pm').hidden=!on});
+    $('mpcount').textContent=done+' of '+total+' chosen';
+    var ul=$('mplist');ul.innerHTML='';
+    PAGES.filter(function(p){return p.top}).forEach(function(t){var li=document.createElement('li');var parts=[];
+      GROUPS.forEach(function(G){var f=G.fams.filter(function(x){return x.pick===t.id})[0];if(f){var v=label(getPick(G.key,f.key));parts.push('<span'+(v?'':' class="none"')+'>'+G.label+': '+(v||'not chosen yet')+'</span>')}});
+      li.innerHTML='<b>'+t.name+'</b>'+(parts.length?parts.join('<br>'):'<span class="none">no options to pick</span>');ul.appendChild(li)});
+    if(!canSave)$('mpnote').textContent="Picks can't be saved in this browser.";
+    pickButtons();
+  }
+  function pickButtons(){
+    var p=cur>=0?PAGES[cur]:null,b=[$('pick'),$('mpick')];
+    var single=p&&p.grp&&!cmp;b.forEach(function(x){x.hidden=!single});
+    if(single){var on=getPick(p.grp,p.fam)===p.id;b.forEach(function(x){x.disabled=!canSave;x.setAttribute('aria-pressed',on)});
+      $('pick').textContent=!canSave?"Can't save picks here":on?'Picked ✓':'Pick this one';$('mpick').textContent=!canSave?"Can't save":on?'Picked ✓':'Pick'}
+    if(p&&p.panel&&cmp){var v=getPick(p.grp,p.fam);
+      [['pickA',p.id,'Pick panel'],['pickB','live','Pick live']].forEach(function(a){var x=$(a[0]),on=v===a[1];x.disabled=!canSave;x.setAttribute('aria-pressed',on);x.textContent=!canSave?"Can't save picks here":on?'Picked ✓':a[2]})}
+  }
+  $('pick').onclick=$('mpick').onclick=function(){var p=PAGES[cur];if(p&&p.grp)setPick(p.grp,p.fam,p.id,true)};
+  $('pickA').onclick=function(){var p=PAGES[cur];if(p&&p.panel)setPick(p.grp,p.fam,p.id,true)};
+  $('pickB').onclick=function(){var p=PAGES[cur];if(p&&p.panel)setPick(p.grp,p.fam,'live',true)};
+  $('mypicks').onclick=function(){var pn=$('mppanel');pn.hidden=!pn.hidden;this.setAttribute('aria-expanded',!pn.hidden)};
+  $('mpclear').onclick=function(){if(!canSave)return;if(window.confirm('Clear all your picks in this browser?')){picks={};try{localStorage.removeItem(PK)}catch(e){}refreshPicks()}};
+  $('mpcopy').onclick=function(){
+    var text=summary().join('\n'),btn=this,ok=function(){btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy my picks'},1800)};
+    var fallback=function(){var t=document.createElement('textarea');t.value=text;t.setAttribute('readonly','');t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();
+      var done=false;try{done=document.execCommand('copy')}catch(e){}document.body.removeChild(t);if(done)ok();else window.prompt('Copy your picks:',text)};
+    if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(text).then(ok,fallback);else fallback();
+  };
 
   function toggle(btn,box,on){box.hidden=!on;btn.setAttribute('aria-expanded',on?'true':'false')}
   function expand(on){toggle(more,rest,on)}
@@ -201,11 +309,11 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
   }
   function layout(){
     var two=cmp&&!narrow.matches;
-    stage.classList.toggle('two',two);$('capA').hidden=!two;
+    stage.classList.toggle('two',two);$('capA').hidden=!cmp;$('capB').hidden=!cmp;
     $('colA').hidden=cmp&&narrow.matches&&side!=='A';$('colB').hidden=!cmp||(narrow.matches&&side!=='B');
     if(narrow.matches||cur<0)return;
     var w=stage.clientWidth-24,h=stage.clientHeight-24;
-    if(two){w=Math.floor((w-16)/2);h-=24;fit(frame,view,w,h);fit(frame2,view2,w,h)}
+    if(two){w=Math.floor((w-16)/2);h-=36;fit(frame,view,w,h);fit(frame2,view2,w,h)}
     else fit(frame,view,w,h);
   }
   function setSide(x){side=x;$('flipA').setAttribute('aria-pressed',x==='A');$('flipB').setAttribute('aria-pressed',x==='B');layout()}
@@ -228,8 +336,9 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     $('flip').hidden=!cmp;$('mcmp').textContent=cmp?'Done':'Compare';$('cmp').textContent=cmp?'Close compare':'Compare with live';
     if(cmp){var live=PAGES.filter(function(q){return q.id===p.live})[0];
       if(view2.getAttribute('src')!=='pages/'+p.live+'/')view2.setAttribute('src','pages/'+p.live+'/');
-      $('capA').textContent='Panel pick';$('capB').textContent='Live: '+live.name;$('flipB').textContent='Live'}
+      $('capAl').textContent='Panel pick';$('capBl').textContent='Live: '+live.name;$('flipB').textContent='Live'}
     else{view2.removeAttribute('src')}
+    pickButtons();
     var t=(p.full||p.name)+(cmp?' vs live':'');$('title').textContent=t;$('mtitle').textContent=t;
     $('open').href=url(i);
     document.title=(p.full||p.name)+' · Tutera previews';
@@ -253,7 +362,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
   $('back').onclick=function(e){e.preventDefault();history.replaceState(null,'',location.pathname+location.search);route();window.scrollTo(0,0)};
   window.addEventListener('hashchange',route);
   window.addEventListener('resize',function(){route()});
-  setMode(mode);route();
+  setMode(mode);route();refreshPicks();
 })();
 </script>
 </body>
