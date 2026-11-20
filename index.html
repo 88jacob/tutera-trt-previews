@@ -49,6 +49,17 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
 .frame{background:#fff;border:1px solid #c9cfda;border-radius:12px;overflow:hidden;box-shadow:0 6px 24px rgba(20,30,50,.12);flex:none}
 .frame iframe{border:0;display:block;transform-origin:0 0;background:#fff}
 .empty{margin:auto;color:#7a8394}
+.tag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:#1f7a4d;color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;vertical-align:middle}
+.menu li.panel a{background:#eef8f2;box-shadow:inset 0 0 0 1px #bfe3cd}
+.menu li.panel a[aria-current="true"]{background:#dcefe4;box-shadow:inset 0 0 0 2px #1f7a4d}
+.cmp{border:1px solid #1f7a4d;border-radius:8px;background:#fff;color:#1f7a4d;padding:7px 14px;cursor:pointer;font-weight:600}
+.cmp[aria-pressed="true"]{background:#1f7a4d;color:#fff}
+.cmp[hidden],.flip[hidden]{display:none}
+.col{display:flex;flex-direction:column;min-width:0;flex:none}
+.col[hidden]{display:none}
+.cap{font-size:13px;font-weight:700;color:#5b6475;margin:0 0 6px;height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cap[hidden]{display:none}
+.stage.two{gap:16px}
 .mbar{display:none}
 /* Narrow screens (an actual phone): the menu is the home screen; a chosen page opens full-screen. */
 @media (max-width:899px){
@@ -65,6 +76,13 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
   .mbar .title{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.8;text-align:center}
   .mbar button{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:6px;padding:3px 10px;cursor:pointer}
   .stage{padding:0}
+  .col{width:100%;height:100%}
+  .cap{display:none}
+  .mbar .flip{display:inline-flex;border:1px solid rgba(255,255,255,.35);border-radius:6px;overflow:hidden}
+  .mbar .flip button{border:0;border-radius:0;padding:3px 8px}
+  .mbar .flip button[aria-pressed="true"]{background:#fff;color:#1d2433}
+  .mbar .cmp{padding:3px 8px;font-size:13px;border-color:#7fd1a5;color:#7fd1a5;background:transparent}
+  .mbar .cmp[aria-pressed="true"]{background:#1f7a4d;color:#fff}
   .frame{border:0;border-radius:0;box-shadow:none;width:100%!important;height:100%!important}
   .frame iframe{width:100%!important;height:100%!important;transform:none!important}
 }
@@ -88,6 +106,8 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     <div class="mbar">
       <a href="#" id="back">&larr; Back to all pages</a>
       <span class="title" id="mtitle"></span>
+      <button type="button" class="cmp" id="mcmp" aria-pressed="false" hidden>Compare</button>
+      <span class="flip" id="flip" role="group" aria-label="Which page" hidden><button type="button" id="flipA" aria-pressed="true">Panel</button><button type="button" id="flipB" aria-pressed="false">Live</button></span>
       <button type="button" id="mprev" aria-label="Previous page">&lsaquo;</button>
       <button type="button" id="mnext" aria-label="Next page">&rsaquo;</button>
     </div>
@@ -97,6 +117,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
         <button type="button" id="phone" aria-pressed="true">Phone</button>
         <button type="button" id="desktop" aria-pressed="false">Desktop</button>
       </span>
+      <button type="button" class="cmp" id="cmp" aria-pressed="false" hidden>Compare with live</button>
       <span class="pair">
         <button type="button" class="btn" id="prev">&larr; Prev</button>
         <button type="button" class="btn" id="next">Next &rarr;</button>
@@ -104,7 +125,8 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
       <a class="open" id="open" href="#" target="_blank" rel="noopener">Open this page on its own &nearr;</a>
     </div>
     <div class="stage" id="stage">
-      <div class="frame" id="frame"><iframe id="view" title="Page preview"></iframe></div>
+      <div class="col" id="colA"><p class="cap" id="capA" hidden></p><div class="frame" id="frame"><iframe id="view" title="Page preview"></iframe></div></div>
+      <div class="col" id="colB" hidden><p class="cap" id="capB"></p><div class="frame" id="frame2"><iframe id="view2" title="Live top pick"></iframe></div></div>
     </div>
   </main>
 </div>
@@ -123,26 +145,29 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     {id:'pageb-value-stack',name:'Page B with value stack'},
     {id:'fable6',name:'Fable-6'}
   ];
-  // Photo options: one entry per ready family, in Top picks order. Adding a family = one line here.
+  // Photo options: one entry per family, in Top picks order. Adding a family = one line here.
+  // panel: site folder under pages/photos/ of the "Panel pick" variant (listed first, comparable with the live pick). sets:false = no numbered sets.
   var SETS=['Paddleboard','Gym chalk-up','Garage gym','Truck tailgate','Basketball','Tennis','Cafe','Basketball, film look'];
   var PHOTO_FAMILIES=[
-    {key:'value-stack',pick:'mixed-value-stack'},
-    {key:'fable6-bold',pick:'fable6-bold'},
-    {key:'best-of-both',pick:'hybrid'},
-    {key:'offer-hero',pick:'offer-hero'},
-    {key:'three-price-cards',pick:'three-price-cards'},
-    {key:'dark-value-stack',pick:'dark-value-stack'}
+    {key:'value-stack',pick:'mixed-value-stack',panel:'value-stack-panel'},
+    {key:'fable6-bold',pick:'fable6-bold',panel:'fable6-bold-panel'},
+    {key:'best-of-both',pick:'hybrid',panel:'best-of-both-panel'},
+    {key:'offer-hero',pick:'offer-hero',panel:'offer-hero-panel'},
+    {key:'three-price-cards',pick:'three-price-cards',panel:'three-price-cards-panel'},
+    {key:'dark-value-stack',pick:'dark-value-stack',panel:'dark-value-stack-panel'},
+    {key:'gameday',pick:'gameday',panel:'gameday-panel',sets:false}
   ];
   PAGES.forEach(function(p){if(!p.top)p.rest=true});
   PHOTO_FAMILIES.forEach(function(f){
     var pick=PAGES.filter(function(p){return p.id===f.pick})[0];f.name=pick.name;
-    SETS.forEach(function(setName,k){PAGES.push({id:'photos/'+f.key+'-'+(k+1),name:'Set '+(k+1)+': '+setName,fam:f.key,full:f.name+' \u00b7 Set '+(k+1)+': '+setName})});
+    if(f.panel)PAGES.push({id:'photos/'+f.panel,name:'Panel pick',fam:f.key,panel:f.panel,live:f.pick,full:f.name+' \u00b7 Panel pick'});
+    if(f.sets!==false)SETS.forEach(function(setName,k){PAGES.push({id:'photos/'+f.key+'-'+(k+1),name:'Set '+(k+1)+': '+setName,fam:f.key,full:f.name+' \u00b7 Set '+(k+1)+': '+setName})});
   });
   var $=function(id){return document.getElementById(id)};
-  var menu=document.querySelector('aside'),rest=$('menu-rest'),more=$('more'),photos=$('menu-photos'),morePhotos=$('more-photos'),view=$('view'),frame=$('frame'),stage=$('stage');
+  var menu=document.querySelector('aside'),rest=$('menu-rest'),more=$('more'),photos=$('menu-photos'),morePhotos=$('more-photos'),view=$('view'),frame=$('frame'),stage=$('stage'),view2=$('view2'),frame2=$('frame2');
   var narrow=window.matchMedia('(max-width:899px)');
   var mode='phone';try{mode=localStorage.getItem('tutera_preview_mode')||'phone'}catch(e){}
-  var cur=-1;
+  var cur=-1,cmp=false,side='A';
 
   PHOTO_FAMILIES.forEach(function(f){
     var b=document.createElement('button');b.type='button';b.className='sub';b.id='sub-'+f.key;b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls','fam-'+f.key);
@@ -152,8 +177,8 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     photos.appendChild(b);photos.appendChild(ul);
   });
   PAGES.forEach(function(p){
-    var li=document.createElement('li');
-    li.innerHTML='<a href="#'+p.id+'"><img src="thumbs/'+p.id+'.jpg" alt="" loading="lazy" width="64" height="80"><span class="n">'+p.name+'</span></a>';
+    var li=document.createElement('li');if(p.panel)li.className='panel';
+    li.innerHTML='<a href="#'+p.id+'"><img src="thumbs/'+p.id+'.jpg" alt="" loading="lazy" width="64" height="80"><span class="n">'+p.name+(p.panel?' <span class="tag">panel</span>':'')+'</span></a>';
     $(p.top?'menu-top':p.rest?'menu-rest':'fam-'+p.fam).appendChild(li);
   });
 
@@ -163,19 +188,27 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
   more.onclick=function(){expand(rest.hidden)};
   morePhotos.onclick=function(){toggle(morePhotos,photos,photos.hidden)};
   function url(i){return 'pages/'+PAGES[i].id+'/'}
-  function layout(){
-    if(narrow.matches||cur<0)return;
-    var w=stage.clientWidth-24,h=stage.clientHeight-24;
+  function fit(fr,v,w,h){
     if(mode==='phone'){
       var fw=Math.min(390,w);
-      frame.style.width=fw+'px';frame.style.height=h+'px';
-      view.style.width=fw+'px';view.style.height=h+'px';view.style.transform='none';
+      fr.style.width=fw+'px';fr.style.height=h+'px';
+      v.style.width=fw+'px';v.style.height=h+'px';v.style.transform='none';
     }else{
       var s=Math.min(1,w/1440);
-      frame.style.width=Math.floor(1440*s)+'px';frame.style.height=h+'px';
-      view.style.width='1440px';view.style.height=Math.ceil(h/s)+'px';view.style.transform='scale('+s+')';
+      fr.style.width=Math.floor(1440*s)+'px';fr.style.height=h+'px';
+      v.style.width='1440px';v.style.height=Math.ceil(h/s)+'px';v.style.transform='scale('+s+')';
     }
   }
+  function layout(){
+    var two=cmp&&!narrow.matches;
+    stage.classList.toggle('two',two);$('capA').hidden=!two;
+    $('colA').hidden=cmp&&narrow.matches&&side!=='A';$('colB').hidden=!cmp||(narrow.matches&&side!=='B');
+    if(narrow.matches||cur<0)return;
+    var w=stage.clientWidth-24,h=stage.clientHeight-24;
+    if(two){w=Math.floor((w-16)/2);h-=24;fit(frame,view,w,h);fit(frame2,view2,w,h)}
+    else fit(frame,view,w,h);
+  }
+  function setSide(x){side=x;$('flipA').setAttribute('aria-pressed',x==='A');$('flipB').setAttribute('aria-pressed',x==='B');layout()}
   function setMode(m){
     mode=m;try{localStorage.setItem('tutera_preview_mode',m)}catch(e){}
     $('phone').setAttribute('aria-pressed',m==='phone');$('desktop').setAttribute('aria-pressed',m==='desktop');
@@ -190,7 +223,14 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     if(p.rest)expand(true);
     if(p.fam){toggle(morePhotos,photos,true);openFam(p.fam,true)}
     if(view.getAttribute('src')!==url(i))view.setAttribute('src',url(i));
-    $('title').textContent=p.full||p.name;$('mtitle').textContent=p.full||p.name;
+    var canCmp=!!p.panel;if(!canCmp)cmp=false;
+    $('cmp').hidden=$('mcmp').hidden=!canCmp;$('cmp').setAttribute('aria-pressed',cmp);$('mcmp').setAttribute('aria-pressed',cmp);
+    $('flip').hidden=!cmp;$('mcmp').textContent=cmp?'Done':'Compare';$('cmp').textContent=cmp?'Close compare':'Compare with live';
+    if(cmp){var live=PAGES.filter(function(q){return q.id===p.live})[0];
+      if(view2.getAttribute('src')!=='pages/'+p.live+'/')view2.setAttribute('src','pages/'+p.live+'/');
+      $('capA').textContent='Panel pick';$('capB').textContent='Live: '+live.name;$('flipB').textContent='Live'}
+    else{view2.removeAttribute('src')}
+    var t=(p.full||p.name)+(cmp?' vs live':'');$('title').textContent=t;$('mtitle').textContent=t;
     $('open').href=url(i);
     document.title=(p.full||p.name)+' · Tutera previews';
     document.body.classList.add('viewing');
@@ -199,10 +239,13 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
   function go(d){var i=((cur<0?0:cur)+d+PAGES.length)%PAGES.length;location.hash=PAGES[i].id}
   function route(){
     var id=location.hash.slice(1),i=-1;
+    cmp=id.indexOf('compare=')===0;if(cmp){id='photos/'+id.slice(8);if(PAGES.filter(function(q){return q.id===id})[0]&&cur>=0&&PAGES[cur].id!==id)side='A'}
     PAGES.forEach(function(p,k){if(p.id===id)i=k});
     if(i<0&&!narrow.matches)i=0; // wide screens always show a page
     show(i);
   }
+  $('cmp').onclick=$('mcmp').onclick=function(){var p=PAGES[cur];if(!p||!p.panel)return;location.hash=cmp?p.id:'compare='+p.panel};
+  $('flipA').onclick=function(){setSide('A')};$('flipB').onclick=function(){setSide('B')};
   $('phone').onclick=function(){setMode('phone')};
   $('desktop').onclick=function(){setMode('desktop')};
   $('prev').onclick=$('mprev').onclick=function(){go(-1)};
