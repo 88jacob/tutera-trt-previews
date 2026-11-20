@@ -444,6 +444,38 @@
   .close .txt h2{max-width:560px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar{transition:none}}
+/* Team section, compact desktop (Jacob 2026-11-20): heading + round founder portrait left, six 100x125 provider tiles right. The tiles are 200x250 crops, so they are never shown larger. */
+@media (min-width:960px){
+  .crew{padding:64px 0}
+  .crew .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:64px;align-items:center;text-align:left}
+  .crew .kicker{grid-column:1;grid-row:1}
+  .crew h2.big{grid-column:1;grid-row:2;margin-top:6px;text-wrap:balance}
+  .crew .cgrid{display:contents}
+  .crew .fcard2{grid-column:1;grid-row:3;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:22px;margin-top:26px;padding:0;background:none;border:0;border-radius:0;box-shadow:none;text-align:left}
+  .crew .fimg{flex:0 0 136px;width:136px;height:136px;aspect-ratio:auto;border-radius:50%;overflow:hidden;background:#fff;border:3px solid #fff;box-shadow:0 0 0 3px var(--ink),0 10px 22px rgba(21,41,102,.16)}
+  .crew .fimg img{width:100%;height:100%;transform:scale(1.75);transform-origin:50% 30%}
+  .crew .fcard2 b{font-size:19px;margin-top:0}
+  .crew .fcred{font-size:15px;max-width:300px}
+  .crew .pgrid{grid-column:2;grid-row:1 / span 3;margin:0}
+  .crew .pgrid ul{display:grid;grid-template-columns:repeat(3,100px);gap:14px}
+  .crew .pgrid img{width:100px;height:125px;aspect-ratio:auto;border-radius:12px}
+  .crew .pgrid figcaption{margin-top:12px;font-size:14px}
+}
+/* Desktop nav over the hero photo (Jacob 2026-11-20: "have his head go up into the nav bar and also include the phone number there too").
+   The photo panel now starts at the top of the page, behind the nav; the nav is see-through over the photo (a soft navy fade behind the logo) and solid navy over the right half.
+   The hero is pulled up by the nav height and its text padded down by the same amount, so the headline and form do not move. */
+@media (min-width:960px){
+  .top{position:relative;z-index:3;border-bottom:0;background:linear-gradient(90deg,transparent 45%,var(--ink) 45%)}
+  /* soft navy glow behind the logo only; it fades in every direction, so there is no edge along the bottom of the bar */
+  .top::before{content:"";position:absolute;left:0;top:0;width:45%;height:150px;pointer-events:none;background:radial-gradient(ellipse 60% 100% at 0% 0%,rgba(21,41,102,.8) 0%,rgba(21,41,102,.45) 45%,rgba(21,41,102,0) 100%)}
+  .top .wrap{position:relative}
+  .call .w{margin-right:5px}
+  .top .wrap{justify-content:space-between}
+  .call{display:inline-flex;align-items:center;font-size:15px;font-weight:600;color:#fff;text-decoration:none;border:1px solid #2e4a94;border-radius:999px;padding:6px 13px;white-space:nowrap}
+  .call:hover{border-color:var(--or)}
+  .hero{margin-top:-70px;min-height:850px}
+  .hero .herogrid{padding-top:114px}
+}
 </style>
 </head>
 <body>
@@ -452,7 +484,7 @@
   <div class="wrap">
     <img class="logo" src="tutera-logo.webp" alt="Tutera Medical" width="492" height="144">
     <!-- PLACEHOLDER, GHL TRACKING NUMBER: (480) 555-0149 is not a real line. Oscar swaps it here and in every tel: link (search "5550149"). -->
-    <a class="call ph" href="tel:+14805550149" data-placeholder="ghl-tracking-number"><span class="w">Call </span>(480) 555-0149</a>
+    <a class="call" href="tel:+14805550149" data-placeholder="ghl-tracking-number"><span class="w">Call </span>(480) 555-0149</a>
   </div>
 </header>
 
