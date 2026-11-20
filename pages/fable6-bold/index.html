@@ -34,7 +34,7 @@ img{max-width:100%;height:auto;display:block}
 .hero{position:relative;background:var(--cream);padding-bottom:28px}
 .hphoto{position:relative;height:440px;overflow:hidden;background:var(--ink)}
 .hphoto picture{display:contents}
-.hphoto img{width:100%;height:100%;object-fit:cover;object-position:50% 8%}
+.hphoto img{width:100%;height:100%;object-fit:cover;object-position:30% 30%}
 .hphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,41,102,0) 42%,rgba(21,41,102,.7) 66%,rgba(21,41,102,.94) 100%)}
 .hero>.wrap{position:relative;z-index:1;margin-top:-186px}
 .htext{color:#fff}
@@ -145,7 +145,7 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   .hero{padding-bottom:40px;background:var(--ink)}
   /* 2026-11-20 (Jacob): the navy photo hero holds the whole form on desktop; no light-blue strip under it. */
   .hphoto{position:absolute;left:0;right:0;top:0;bottom:0;height:auto}
-  .hphoto img{object-position:60% 30%}
+  .hphoto img{object-position:50% 0%}
   .hphoto::after{background:linear-gradient(90deg,rgba(21,41,102,.92) 0%,rgba(21,41,102,.7) 34%,rgba(21,41,102,0) 62%)}
   .hero>.wrap{margin-top:0}
   .htext{position:static;padding-top:56px;max-width:600px}
@@ -218,11 +218,11 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 
 <main>
 <div class="hero">
-  <!-- Face mark ▲A, one slot: phone shows r2-trailhead-grey-tee-hands-hips, desktop shows the wide r2-hero-16x9-trailhead-standing (same man, same shoot). -->
+  <!-- Hero (Jacob's picks 2026-11-20): drive-01-paddle-carry, phone original, desktop mirrored, as built in v4/fable6-bold-photos-1. -->
   <div class="hphoto">
     <picture>
-      <source media="(min-width:860px)" srcset="hero-stand-d.jpg" width="1400" height="788">
-      <img src="hero-stand-m.jpg" width="1120" height="1400" alt="" fetchpriority="high">
+      <source media="(min-width:860px)" srcset="hero-paddle-flip.jpg" width="1536" height="1152">
+      <img src="hero-paddle.jpg" width="1536" height="1152" alt="" fetchpriority="high">
     </picture>
   </div>
   <div class="wrap">
@@ -271,8 +271,8 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 
 <section class="split">
   <div class="media">
-    <!-- r2-trailhead-navy-tee-hands-hips (distinct face) -->
-    <img src="symptoms-navy.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 12%">
+    <!-- Garage kettlebell swing (r3-gemini-kettlebell), as on v3/fable6-bold-three-cards-first -->
+    <img src="sec-kettlebell-a.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 20%">
     <div class="head"><h2>Sound familiar?</h2></div>
   </div>
   <div class="txt">
@@ -287,8 +287,8 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 
 <section class="split rev sand">
   <div class="media">
-    <!-- r2-trail-shoe-tie (distinct face) -->
-    <img src="steps-shoetie.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 20%">
+    <!-- Rope climb (r3-gemini-rope-climb), as on v3/fable6-bold-three-cards-first -->
+    <img src="sec-ropeclimb.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 22%">
     <div class="head"><h2>From free test to treatment plan.</h2></div>
   </div>
   <div class="txt">
@@ -304,8 +304,8 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 
 <section class="split">
   <div class="media">
-    <!-- r2-trailhead-olive-tee-thumb-pocket (face mark ●B) -->
-    <img src="price-olive.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 12%">
+    <!-- drive-02-gym-chalk, crop as v4/fable6-bold-photos-1 Sound familiar slot -->
+    <img src="price-chalk.jpg" width="1536" height="1152" loading="lazy" alt="" style="object-position:34% 30%">
     <div class="head"><h2>You pay only if a provider prescribes.</h2></div>
   </div>
   <div class="txt">
@@ -381,8 +381,8 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 
 <section class="split rev close">
   <div class="media">
-    <!-- r2-trail-run-grey-tee (face mark ■C) -->
-    <img src="close-run.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 10%">
+    <!-- drive-09-cafe-film, crop as v4/fable6-bold-photos-2 steps slot -->
+    <img src="close-cafe.jpg" width="1200" height="896" loading="lazy" alt="" style="object-position:52% 35%">
     <div class="head"><h2>Check your testosterone levels today.</h2></div>
   </div>
   <div class="txt">

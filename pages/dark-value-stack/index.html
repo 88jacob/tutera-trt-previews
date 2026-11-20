@@ -34,7 +34,7 @@ img{max-width:100%;height:auto;display:block}
 .hero{position:relative;background:var(--cream);padding-bottom:28px}
 .hphoto{position:relative;height:440px;overflow:hidden;background:var(--ink)}
 .hphoto picture{display:contents}
-.hphoto img{width:100%;height:100%;object-fit:cover;object-position:100% 0}
+.hphoto img{width:100%;height:100%;object-fit:cover;object-position:53% 0}
 .hphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,41,102,0) 42%,rgba(21,41,102,.7) 66%,rgba(21,41,102,.94) 100%)}
 .hero>.wrap{position:relative;z-index:1;margin-top:-186px}
 .htext{color:#fff}
@@ -163,7 +163,7 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   .hero{background:var(--ink)}
   /* Jacob 2026-11-20: photo panel on the LEFT, headline and form on the RIGHT */
   .hphoto{position:absolute;left:0;top:0;bottom:0;width:44%;height:auto}
-  .hphoto img{object-position:100% 0}
+  .hphoto img{object-position:58% 0}
   /* Jacob 2026-11-20: no navy fade over his face; the photo panel ends on a crisp edge against the navy */
   .hphoto::after{display:none}
   .rate1{color:#fff}
@@ -269,9 +269,9 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 
 <main>
 <div class="hero">
-  <!-- HERO: Tutera's own sprint-start athlete, the hero of Oscar's Page A (Jacob: "use the original image that we were using for variant A from Oscar"). Cropped on the PC from the original 2880x998 file (x 1060-2260) to drop the baked-in left haze and most of the blue panel. Same crop on phone (full-bleed) and desktop (tall panel on the right). -->
+  <!-- HERO, phone and desktop: drive-03-garage-gym (Jacob's picks 2026-11-20, as built in v4/dark-value-stack-photos-3). The desktop panel keeps its clean right edge, no fade over the face. -->
   <div class="hphoto">
-    <img src="hero-sprint.jpg" width="1200" height="998" alt="" fetchpriority="high">
+    <img src="hero-garage.jpg" width="1536" height="1152" alt="" fetchpriority="high">
   </div>
   <div class="wrap">
     <div class="htext">
@@ -319,8 +319,8 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 
 <section class="split rev dark-vs">
   <div class="media">
-    <!-- PHOTO SLOT: price section. r3-gptimage2-kettlebell (round 3, gpt-image-2; distinct man). -->
-    <img src="sec-kettlebell-b.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 18%">
+    <!-- PHOTO SLOT: above the dark value stack: drive-04-tailgate (Jacob's picks 2026-11-20, as built in v4/dark-value-stack-photos-3). -->
+    <img src="price-tailgate.jpg" width="1536" height="1152" loading="lazy" alt="" style="object-position:3% 30%">
     <div class="head"><h2>You pay only if a&nbsp;provider prescribes.</h2></div>
   </div>
   <div class="txt">
