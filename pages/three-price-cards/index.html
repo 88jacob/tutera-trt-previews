@@ -164,7 +164,8 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   /* Jacob 2026-11-20: photo panel on the LEFT, headline and form on the RIGHT */
   .hphoto{position:absolute;left:0;top:0;bottom:0;width:44%;height:auto}
   .hphoto img{object-position:100% 0}
-  .hphoto::after{background:linear-gradient(270deg,var(--ink) 0%,rgba(21,41,102,0) 22%)}
+  /* Jacob 2026-11-20: no navy fade over his face; the photo panel ends on a crisp edge against the navy */
+  .hphoto::after{display:none}
   .rate1{color:#fff}
   .hero>.wrap{margin:0 0 0 44%;max-width:none;padding:0 56px 0 64px}
   .htext{position:static;padding-top:56px;max-width:600px}
@@ -219,7 +220,7 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   .hero>.wrap{margin-left:40%;padding:0 32px 0 44px}
   h1{font-size:42px}
 }
-/* phones narrower than 380px: one size down so "Specialized provider check-ins" still fits beside "Included" */
+/* phones narrower than 380px: one size down so "Specialized provider guidance" still fits beside "Included" */
 @media (max-width:379px){.vrows li,.vrows b,.ptotal span.plab{font-size:13px}}
 @media (max-width:369px){.vrows li span.nw{white-space:normal}}
 /* Dark three-card price section (gameday clone), in this page's Poppins and brand colours.
