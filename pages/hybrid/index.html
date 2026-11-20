@@ -458,6 +458,16 @@
   .gpanel{background:var(--ink);border-radius:16px;overflow:hidden;aspect-ratio:1/1}
   .gpanel img{width:100%;height:100%;object-fit:contain;object-position:center bottom}
 }
+/* Split Hero zoom-out (Jacob 2026-11-20: "zoom out the runner a little bit"). --z is the photo's height as a share of the hero; the photo stays anchored top-right and fades into navy at its foot, so more of the crouch shows. The head cut-out uses the same rule, so it stays aligned. */
+:root{--z:.82}
+@media (max-width:959.98px){
+  .hphoto img{height:calc(100% * var(--z));-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent);mask-image:linear-gradient(180deg,#000 72%,transparent)}
+}
+@media (min-width:960px){
+  .hph{background:var(--ink)}
+  .hph img{bottom:auto;height:calc(100% * var(--z))}
+  .hph img:not(.hcut){-webkit-mask-image:linear-gradient(180deg,#000 80%,transparent);mask-image:linear-gradient(180deg,#000 80%,transparent)}
+}
 </style>
 </head>
 <body>

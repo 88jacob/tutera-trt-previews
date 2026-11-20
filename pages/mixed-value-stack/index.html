@@ -294,6 +294,18 @@ footer p+p{margin-top:4px}
 .vrows .nw{white-space:nowrap;padding:0}
 .vrows .nw::before{content:none}
 @media (max-width:959px){.vstack{padding:6px 14px 0}.vrows li{font-size:14.5px}.vsave{margin:0 -14px}}
+/* desktop-only section buttons (Jacob 2026-11-20: no floating footer on desktop) */
+.dkcta{display:none}
+@media (min-width:960px){
+  .dkcta{display:flex;width:fit-content;padding:14px 34px;margin:28px auto 0}
+  .price .dkcta{grid-column:1;grid-row:4;justify-self:start;margin:28px 0 0}
+  .price .pph{grid-row:1 / span 4}
+  .incl .wrap{grid-template-rows:1fr auto auto 1fr;row-gap:0}
+  .incl .incl-txt{grid-row:1}
+  .incl .steps{grid-row:2;margin-top:28px}
+  .incl .duo img{grid-row:1 / span 4}
+  .incl .dkcta{grid-column:2;grid-row:3;justify-self:start;align-self:start;margin:28px 0 0}
+}
 </style>
 </head>
 <body>
@@ -362,6 +374,7 @@ footer p+p{margin-top:4px}
       <div class="vtotal"><span class="vflag">If prescribed</span><p class="vprice"><s>$299</s>$149/mo</p></div>
       <p class="vsave">Save $150 a month (50% off)</p>
     </div>
+    <a class="btn dkcta" href="#book">Book My Free Testosterone Test</a>
     <div class="dkph pph"><img src="price-kettlebell.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 20%"></div>
   </div>
 </section>
@@ -379,6 +392,7 @@ footer p+p{margin-top:4px}
         <li>A personalized TRT plan.</li>
       </ol>
     </div>
+    <a class="btn dkcta" href="#book">Book My Free Testosterone Test</a>
   </div>
 </section>
 
@@ -406,6 +420,7 @@ footer p+p{margin-top:4px}
       <blockquote class="review"><p>&ldquo;Steve is very knowledgeable and has a practical view on arriving at the proper treatment recommendations. Thanks Steve!&rdquo;</p><b>Scott C.</b></blockquote>
     </div>
     <p class="fine">Quoted from public Google reviews and Tutera Medical's TRT page.</p>
+    <a class="btn dkcta" href="#book">Book My Free Testosterone Test</a>
   </div>
 </section>
 

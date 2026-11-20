@@ -173,6 +173,15 @@ footer p+p{margin-top:6px !important}
  .gino .wrap{grid-template-columns:minmax(0,1fr) 380px;column-gap:48px}
  .faqsec .wrap{grid-template-columns:360px minmax(0,1fr);column-gap:44px}
 }
+/* desktop-only section buttons (Jacob 2026-11-20) */
+.dkcta{display:none}
+@media(min-width:960px){
+ #hd-lp a.dkcta{display:flex;max-width:380px;margin:28px auto 0;text-decoration:none;color:#fff}
+ #hd-lp a.dkcta:hover{color:#fff}
+ #hd-lp .value a.dkcta{grid-column:1;grid-row:3;justify-self:start;margin:28px 0 0;width:380px}
+ .vphoto{grid-row:1 / span 3}
+ #hd-lp .gino a.dkcta{margin:28px 0 0}
+}
 </style>
 </head>
 <body>
@@ -240,6 +249,7 @@ footer p+p{margin-top:6px !important}
    <div class="vprice"><span>If prescribed</span><strong><s>$299</s>$149<small>/mo</small></strong></div>
    <p class="vsave">Save $150 a month (50% off)</p>
   </div>
+ <a class="hd-btn dkcta" href="#book">Book My Free Testosterone Test</a>
   <!-- PHOTO SLOT (replaceable): program-boxing.jpg, the photo combos/light shows in this spot today. -->
   <img class="vphoto" src="assets/program-boxing.jpg" width="896" height="1120" alt="">
  </div>
@@ -251,6 +261,7 @@ footer p+p{margin-top:6px !important}
   <p class="kicker">The Tutera method</p>
   <h2>Built on 10 U.S. Patents.</h2>
   <p class="glead">Tutera Medical was founded by Dr. Gino Tutera, a board-certified OB/GYN who created the SottoPelle&reg; Method. He is the named inventor on 10 U.S. patents for its individualized pellet-dosing system. More than 250,000 patients have been treated with it.</p>
+ <a class="hd-btn dkcta" href="#book">Book My Free Testosterone Test</a>
  </div>
  <div class="gpanel"><img src="assets/gino.webp" width="1100" height="1100" loading="lazy" alt="Dr. Gino Tutera"></div>
 </div></section>
@@ -274,6 +285,7 @@ footer p+p{margin-top:6px !important}
   <div class="quote"><p>“I've been going to Tutera Medical for over 5 years. It's really changed my life. Not to mention the people are fantastic.”</p><b>Mike C.</b></div>
   <div class="quote"><p>“Steve is very knowledgeable and has a practical view on arriving at the proper treatment recommendations. Thanks Steve!”</p><b>Scott C.</b></div>
  </div>
+ <a class="hd-btn dkcta" href="#book">Book My Free Testosterone Test</a>
 </div></section>
 
 <section class="sec alt faqsec"><div class="wrap">
