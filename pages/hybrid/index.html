@@ -123,6 +123,7 @@
   .gclinics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
   .gclinics li{background:var(--sand);border-radius:10px;padding:9px 6px;text-align:center;font-size:12.5px;line-height:1.35;color:var(--mute)}
   .gclinics b{display:block;font-size:14px;color:var(--ink)}
+  .gclinics .gst{display:block;margin:1px 0 0;font-size:11px;letter-spacing:1px;line-height:1.3;white-space:nowrap} /* small stars in each clinic tile (Jacob 2026-11-20) */
   .quotes{display:grid;gap:12px;margin-top:18px}
   .quote{background:#fff;border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 12px 12px 0;padding:14px 16px;font-size:15px;line-height:1.5}
   .quote cite{display:block;margin-top:6px;font-style:normal;font-weight:700;font-size:14px;color:var(--mute)}
@@ -388,6 +389,7 @@
     .faqsec .kick{grid-column:1;grid-row:1}
     .faqsec h2{grid-column:1;grid-row:2}
     .faqsec .faq{grid-column:2;grid-row:1 / span 2;max-width:none;margin:0}
+    .faqsec .faqcta{grid-column:2;grid-row:3;justify-self:start;margin-top:28px}
     /* closing form over a full-width photo band, man on the right */
     .close{position:relative;overflow:hidden;padding:104px 0}
     .cph{display:block;position:absolute;inset:0}
@@ -463,10 +465,16 @@
 @media (max-width:959.98px){
   .hphoto img{height:calc(100% * var(--z));-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent);mask-image:linear-gradient(180deg,#000 72%,transparent)}
 }
+/* Desktop hero fill (Jacob 2026-11-20: "move the guy a little bit down or just include more of him ... this blue bar under him just looks terrible"). The --z zoom above now applies to phones only. On desktop the photo fills the whole panel (cover, sized to the panel's full height including the strip behind the nav), anchored bottom-right, so his hands and knee run to the panel's bottom edge: no navy fade, no navy block. The head cut-out shares this rule, so it stays aligned. */
 @media (min-width:960px){
-  .hph{background:var(--ink)}
-  .hph img{bottom:auto;height:calc(100% * var(--z))}
-  .hph img:not(.hcut){-webkit-mask-image:linear-gradient(180deg,#000 80%,transparent);mask-image:linear-gradient(180deg,#000 80%,transparent)}
+  .hph img{top:0;bottom:0;height:100%;object-fit:cover;object-position:100% 100%}
+}
+/* Closing pull-up on desktop (Jacob 2026-11-20: "This pull-up one is terrible ... it's more about how you actually had it in the footer, where it looked good"). The phone footer scaled up: the photo is a full-height panel bleeding to the section's top, right and bottom edges, tight on his head, shoulders, arms and the bar, with the navy fading up from below his shirt hem (source y ~670) and a short 32px navy fade at the panel's left edge, over trees only. The photo is drawn at its own pixels (1:1, never upscaled), so the panel is the right half of the band but never wider than the file (880px) and always starts 24px clear of the form. His head sits ~85px below the section top (source y 70 at the top edge). The heading and form sit on plain navy. */
+@media (min-width:960px){
+  .close .cph{inset:0 0 0 auto;left:max(50%,calc(100% - 880px),calc(max(36px,calc((100% - 1140px) / 2 + 36px)) + 524px));overflow:hidden;background:var(--ink)}
+  .close .cph picture{display:block;height:100%}
+  .close .cph img{position:absolute;display:block;max-width:none;width:880px;height:1100px;top:-70px;left:max(calc(100% - 880px),-240px)}
+  .close .cph::after{display:block;pointer-events:none;background:linear-gradient(90deg,var(--ink),rgba(21,41,102,0) 32px),linear-gradient(180deg,rgba(21,41,102,0) 600px,var(--ink) 750px)}
 }
 </style>
 </head>
@@ -654,9 +662,9 @@
           </div>
           <p class="gcount">874 Google reviews</p>
           <ul class="gclinics">
-            <li><b>Scottsdale</b>5.0 · 422</li>
-            <li><b>Chandler</b>5.0 · 252</li>
-            <li><b>Glendale</b>5.0 · 200</li>
+            <li><b>Scottsdale</b><span class="gst" aria-hidden="true">★★★★★</span>5.0 · 422</li>
+            <li><b>Chandler</b><span class="gst" aria-hidden="true">★★★★★</span>5.0 · 252</li>
+            <li><b>Glendale</b><span class="gst" aria-hidden="true">★★★★★</span>5.0 · 200</li>
           </ul>
         </div>
     </div>
@@ -719,6 +727,7 @@
       <details><summary>How can I tell if I have low T?</summary><p>Start with the free test. Your bloodwork shows where your levels are.</p></details>
       <details><summary>Can I call instead?</summary><p>Yes. <!-- PLACEHOLDER, GHL TRACKING NUMBER --><a href="tel:+14805550149" data-placeholder="ghl-tracking-number">(480) 555-0149</a>, Mon-Thu 8 am-5 pm, Fri 8 am-12 pm Arizona time.</p></details>
     </div>
+    <a class="btn cta faqcta" href="#book">Book My Free Testosterone Test</a>
   </div>
 </section>
 
@@ -738,10 +747,9 @@
 <!-- CLOSING FORM (shared). Phone: fable6-bold-plus's photo with the heading on it, form card below. Desktop: mixed-desktop's full-width photo band behind a navy fade, heading and form on the left. -->
 <section class="split rev close dark">
   <div class="media cph">
-    <!-- PHOTO SLOT: phone closing = drive-03 garage gym (close-garage.jpg, x 57% crops the phone slot); desktop closing band = r3-gemini-sled-push (wide, y 8% unchanged). 2026-11-20 photo picks. -->
+    <!-- PHOTO SLOT: closing = r3-gemini-pullup on phone and desktop (Jacob 2026-11-20: "I liked the old pull-up graphic at the bottom"). Phone: as before (head high, clears the heading). Desktop: the same file in a panel on the right of the band (see "closing pull-up" CSS), man whole, clear of the form. -->
     <picture>
-      <source media="(min-width:960px)" srcset="band-sledpush.jpg" width="1365" height="768">
-      <img src="close-garage.jpg" width="1536" height="1152" loading="lazy" alt="" style="object-position:57% 8%">
+      <img src="sec-pullup.jpg" width="880" height="1100" loading="lazy" alt="" style="object-position:50% 8%">
     </picture>
     <div class="head ph"><h2>Check your testosterone levels today.</h2></div>
   </div>

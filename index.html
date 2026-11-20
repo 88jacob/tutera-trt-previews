@@ -176,19 +176,20 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
 <script>
 (function(){
   var PAGES=[
-    {id:'mixed-value-stack',name:'Light & Dark',top:true},
-    {id:'fable6-bold',name:'Full-Photo Hero',top:true},
-    {id:'hybrid',name:'Split Hero',top:true},
     {id:'offer-hero',name:'Offer First',top:true},
-    {id:'three-price-cards',name:'Three Price Cards',top:true},
-    {id:'dark-value-stack',name:'Dark Value Stack',top:true},
     {id:'gameday',name:'Gameday Style',top:true},
-    {id:'all-light',name:'All Light',top:true},
+    {id:'main-dark-value-stack',name:'Dark Value Stack',top:true},
     {id:'pageb-original',name:'Page B (original)'},
     {id:'pageb-value-stack',name:'Page B with value stack'},
-    {id:'fable6',name:'Fable-6'}
+    {id:'fable6',name:'Fable-6'},
+    {id:'mixed-value-stack',name:'Light & Dark'},
+    {id:'fable6-bold',name:'Full-Photo Hero'},
+    {id:'hybrid',name:'Split Hero'},
+    {id:'all-light',name:'All Light'},
+    {id:'three-price-cards',name:'Three Price Cards'},
+    {id:'dark-value-stack',name:'Dark Value Stack (garage-gym hero)'}
   ];
-  // Photo options: one entry per family, in Top picks order. Adding a family = one line here.
+  // Photo options: one entry per family; a family takes its page's current name, wherever that page sits in the menu. Adding a family = one line here.
   // panel: site folder under pages/photos/ of the "Panel pick" variant (listed first, comparable with the live pick). sets:false = no numbered sets.
   var SETS=['Paddleboard','Gym chalk-up','Garage gym','Truck tailgate','Basketball','Tennis','Cafe','Basketball, film look'];
   var PHOTO_FAMILIES=[
@@ -240,6 +241,8 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
   try{localStorage.setItem(PK+'_t','1');localStorage.removeItem(PK+'_t');canSave=true;picks=JSON.parse(localStorage.getItem(PK)||'{}')||{}}catch(e){canSave=false;picks={}}
   function famOf(g,key){var G=GROUPS.filter(function(x){return x.key===g})[0];return G&&G.fams.filter(function(f){return f.key===key})[0]}
   function byId(id){return PAGES.filter(function(q){return q.id===id})[0]}
+  // My picks lists the top picks first, then every other page that still has options to pick (picks stay keyed by family).
+  function pickPages(){return PAGES.filter(function(p){return p.top}).concat(PAGES.filter(function(p){return !p.top&&!p.grp&&GROUPS.some(function(G){return G.fams.some(function(f){return f.pick===p.id})})}))}
   function getPick(g,key){return picks[g+':'+key]}
   function setPick(g,key,val,toggleOff){
     if(!canSave)return;
@@ -250,7 +253,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
   function label(val,shortForm){if(!val)return '';if(val==='live')return 'keep live';var q=byId(val);return q?(shortForm?q.short:q.name):''}
   function summary(){
     var lines=[];
-    PAGES.filter(function(p){return p.top}).forEach(function(t){
+    pickPages().forEach(function(t){
       var parts=[];GROUPS.forEach(function(G){var f=G.fams.filter(function(x){return x.pick===t.id})[0];if(f)parts.push(G.label+': '+(label(getPick(G.key,f.key))||'not chosen yet'))});
       lines.push(t.name+' — '+(parts.length?parts.join('; '):'no options to pick'));
     });
@@ -264,7 +267,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     PAGES.forEach(function(p){if(!p.grp)return;var on=getPick(p.grp,p.fam)===p.id;p.li.classList.toggle('picked',on);p.li.querySelector('.pm').hidden=!on});
     $('mpcount').textContent=done+' of '+total+' chosen';
     var ul=$('mplist');ul.innerHTML='';
-    PAGES.filter(function(p){return p.top}).forEach(function(t){var li=document.createElement('li');var parts=[];
+    pickPages().forEach(function(t){var li=document.createElement('li');var parts=[];
       GROUPS.forEach(function(G){var f=G.fams.filter(function(x){return x.pick===t.id})[0];if(f){var v=label(getPick(G.key,f.key));parts.push('<span'+(v?'':' class="none"')+'>'+G.label+': '+(v||'not chosen yet')+'</span>')}});
       li.innerHTML='<b>'+t.name+'</b>'+(parts.length?parts.join('<br>'):'<span class="none">no options to pick</span>');ul.appendChild(li)});
     if(!canSave)$('mpnote').textContent="Picks can't be saved in this browser.";
