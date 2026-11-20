@@ -5,32 +5,32 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Free Testosterone Test in Scottsdale | Tutera Medical</title>
 <meta name="description" content="Tired, low energy, low drive? Free testosterone test at Tutera Medical, 8412 E Shea Blvd, Scottsdale. You pay nothing unless a provider prescribes.">
-<meta name="robots" content="noindex">
 <meta name="robots" content="noindex, nofollow">
-<!-- combos/light: all-light page built from Jacob's liked pieces 7, 3, 4 and 5 (see NOTES.md). Form markup, hidden tracking and script copied from pageb-freetest. -->
+<!-- v3/light-plus: built on combos/light. Phone layout kept; desktop (960px+) rebuilt on the light-desktop-b idea; wording brought to the top-pick standard. See NOTES.md. -->
 <style>
-@font-face{font-family:Poppins;font-weight:400;font-style:normal;font-display:swap;src:url(fonts/poppins-400.woff2) format("woff2")}
-@font-face{font-family:Poppins;font-weight:600;font-style:normal;font-display:swap;src:url(fonts/poppins-600.woff2) format("woff2")}
-@font-face{font-family:Poppins;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/poppins-700.woff2) format("woff2")}
-@font-face{font-family:Poppins;font-weight:800;font-style:normal;font-display:swap;src:url(fonts/poppins-800.woff2) format("woff2")}
-#hd-lp{--ink:#152966;--or:#2596BE;--or-d:#1D7A9C;--or2:#0099FF;--cream:#E9F9FF;--sand:#F2F6F9;--txt:#1A1C1E;--mute:#4A708B;--line:#DCE6EE;--star:#F4B400}
+@font-face{font-family:Poppins;font-weight:400;font-style:normal;font-display:swap;src:url(assets/fonts/poppins-400.woff2) format("woff2")}
+@font-face{font-family:Poppins;font-weight:600;font-style:normal;font-display:swap;src:url(assets/fonts/poppins-600.woff2) format("woff2")}
+@font-face{font-family:Poppins;font-weight:700;font-style:normal;font-display:swap;src:url(assets/fonts/poppins-700.woff2) format("woff2")}
+@font-face{font-family:Poppins;font-weight:800;font-style:normal;font-display:swap;src:url(assets/fonts/poppins-800.woff2) format("woff2")}
+#hd-lp{--ink:#152966;--or:#2596BE;--cream:#E9F9FF;--sand:#F2F6F9;--txt:#1A1C1E;--mute:#4A708B;--line:#DCE6EE;--star:#F4B400}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font:16px/1.55 Poppins,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#1A1C1E;background:#fff}
 #hd-lp h1,#hd-lp h2,#hd-lp h3,#hd-lp p{margin:0}
-#hd-lp a{color:var(--or-d)}
+#hd-lp a{color:var(--or)}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-/* header (Page B) */
-.hd-top{background:var(--ink)}
+/* header */
+.hd-top{background:var(--ink);position:relative;z-index:3}
 .hd-top .wrap{height:52px;display:flex;align-items:center}
 .hd-logo{width:120px;height:auto;display:block}
-/* hero */
-.hero{background:linear-gradient(180deg,var(--cream) 0%,#fff 88%);padding:16px 0 36px}
-.hero .wrap{display:grid;gap:14px}
-.hd-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--or-d)}
+/* hero (phone: unchanged from combos/light) */
+.hero{background:linear-gradient(180deg,var(--cream) 0%,#fff 88%);padding:16px 0 36px;position:relative}
+.hero .wrap{display:grid;gap:14px;position:relative;z-index:2}
+.hero-photo{display:none}
+.hd-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--or)}
 #hd-lp h1{font-size:30px;font-weight:800;line-height:1.1;letter-spacing:-.015em;color:var(--ink);margin-top:6px}
-.hd-accent{color:var(--or-d)}
-.hd-sub{font-size:16px;margin-top:8px;color:#2F3B47}
-/* form card (classes from pageb-freetest) */
+.hd-accent{color:var(--or)}
+#hd-lp .hd-sub{font-size:16px;margin-top:12px;color:#2F3B47}
+/* form card */
 .hd-form-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 18px 14px;box-shadow:0 14px 40px rgba(21,41,102,.12);scroll-margin-top:12px}
 .hd-form-title{font-weight:800;font-size:min(21px,calc((100vw - 78px) / 14.9));line-height:1.18;letter-spacing:-.01em;text-align:center;color:var(--ink);text-wrap:balance}
 .hd-form-sub{text-align:center;font-size:15px;color:var(--mute);margin-top:4px !important}
@@ -40,32 +40,43 @@ body{margin:0;font:16px/1.55 Poppins,system-ui,-apple-system,"Segoe UI",Arial,sa
 .hd-mock input:focus,.hd-mock select:focus{outline:none;border-color:var(--or);box-shadow:0 0 0 3px rgba(37,150,190,.15)}
 .hd-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .hd-where{font-size:13.5px;color:#2F3B47;margin:0 0 10px !important;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.hd-chg{background:none;border:0;min-height:44px;min-width:44px;margin:-12px 0;padding:0 2px;font:inherit;color:var(--or-d);text-decoration:underline;cursor:pointer}
+.hd-chg{background:none;border:0;min-height:44px;min-width:44px;margin:-12px 0;padding:0 2px;font:inherit;color:var(--or);text-decoration:underline;cursor:pointer}
 .hd-clinicrow{display:none}.hd-clinicrow.hd-on{display:block}
-.hd-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:14px 10px;white-space:nowrap;border:0;border-radius:12px;background:var(--or-d);color:#fff;font:inherit;font-weight:700;font-size:16px;text-decoration:none;cursor:pointer;box-shadow:0 6px 16px rgba(29,122,156,.25)}
+.hd-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:14px 10px;white-space:nowrap;border:0;border-radius:12px;background:var(--or);color:#fff;font:inherit;font-weight:700;font-size:16px;text-decoration:none;cursor:pointer;box-shadow:0 6px 16px rgba(37,150,190,.28)}
 .hd-btn:hover{background:var(--ink)}
-.hd-btn:focus-visible,#hd-lp button:focus-visible,#hd-lp a:focus-visible{outline:3px solid var(--or2);outline-offset:2px}
+.hd-btn:focus-visible,#hd-lp button:focus-visible,#hd-lp a:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .hd-consent-line{font-size:11.5px;color:#5E6B76;line-height:1.45;text-align:center;margin-top:10px !important}
 .hd-form-note{text-align:center;font-size:13px;color:var(--mute);margin-top:6px !important}
+.rate1{margin:12px 0 0 !important;text-align:center;font-size:13.5px;color:var(--mute);white-space:nowrap}
+.rate1 b{color:var(--ink)}
+.rate1s{color:var(--star);letter-spacing:1px;margin-right:4px}
+.formcol{min-width:0}
 /* sections */
 .sec{padding:64px 0}
 .sec.alt{background:var(--sand)}
 .kicker{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-align:center}
 #hd-lp h2{font-size:28px;font-weight:800;line-height:1.15;letter-spacing:-.01em;color:var(--ink);text-align:center;margin-top:6px;text-wrap:balance}
-.narrow{max-width:620px;margin:0 auto}
-/* piece 7: receipt */
-.receipt{background:#fff;border:2px solid #5591B6;border-radius:18px;padding:18px 20px 16px;margin-top:26px}
-.r-label{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
-.r-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed #C9D6E0;font-size:16px}
-.r-row b{font-weight:800;color:var(--ink)}
-.r-pres{padding-top:14px}
-.r-pres h3{font-size:17px;font-weight:700;color:var(--ink)}
-.r-pres p{font-size:14.5px;color:var(--mute);margin-top:2px}
-.r-pres .r-price{text-align:right;margin-top:6px !important;font-weight:800;color:var(--ink);font-size:36px;line-height:1}
-.r-pres .r-price s{font-size:18px;font-weight:400;color:var(--mute);margin-right:8px}
-.r-pres .r-price small{font-size:18px}
-.r-foot{border-top:2px solid var(--ink);margin-top:12px !important;padding-top:10px;font-size:14px;color:#2F3B47}
-/* piece 3: google reviews */
+/* value: what you pay + what's included (one card) */
+.value-grid{display:grid;gap:16px;margin-top:26px}
+.vcard{background:#fff;border:2px solid #5591B6;border-radius:18px;padding:8px 20px 0;overflow:hidden}
+.vrow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px dashed #C9D6E0;font-size:15.5px;color:#2F3B47}
+.nw{white-space:nowrap}
+.vrow b{font-weight:800;font-size:14px;letter-spacing:.02em;white-space:nowrap}
+.vrow b.free{color:var(--or)}
+.vrow b.inc{color:var(--ink)}
+.vprice{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:16px 0 14px}
+.vprice span{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.vprice strong{font-size:36px;font-weight:800;color:var(--ink);line-height:1}
+.vprice s{font-size:18px;font-weight:400;color:var(--mute);margin-right:8px}
+.vprice small{font-size:18px}
+.vsave{margin:0 -20px !important;background:var(--ink);color:#fff;text-align:center;font-weight:700;font-size:15px;padding:12px}
+.vphoto{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 55%;border-radius:20px;display:block}
+/* founder (Dr. Gino Tutera), layout from v3/hybrid */
+.gcopy{text-align:center}
+.glead{font-size:16px;line-height:1.55;color:#2F3B47;margin-top:12px !important}
+.gpanel{margin:22px auto 0;max-width:420px;background:var(--ink);border-radius:16px;overflow:hidden;aspect-ratio:1/1}
+.gpanel img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block}
+/* google reviews */
 .gcard{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px rgba(21,41,102,.08);padding:24px 22px;margin-top:26px}
 .gtop{text-align:center}
 .gword{font:600 24px/1 Arial,Helvetica,sans-serif;letter-spacing:-.5px}
@@ -83,97 +94,96 @@ body{margin:0;font:16px/1.55 Poppins,system-ui,-apple-system,"Segoe UI",Arial,sa
 .quote{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px}
 .quote p{font-size:15.5px;color:#2F3B47}
 .quote b{display:block;margin-top:10px;color:var(--ink);font-size:14.5px}
-/* piece 4: included */
-.inc{display:grid;gap:12px;margin-top:26px}
-.inc img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:20px;display:block}
-.pillcard{background:var(--sand);border-radius:20px;padding:22px 20px;display:flex;flex-direction:column;justify-content:center}
-.pills{list-style:none;padding:0;margin:0;display:grid;gap:10px}
-.pills li{background:#fff;border-radius:22px;padding:12px 16px 12px 42px;position:relative;font-size:15.5px;color:#2F3B47}
-.pills li:before{content:"";position:absolute;left:18px;top:19px;width:10px;height:5px;border-left:2px solid var(--or-d);border-bottom:2px solid var(--or-d);transform:rotate(-45deg)}
-/* piece 5: stats */
-.stats{display:grid;gap:12px;margin-top:26px}
-.stat{background:#fff;border-radius:18px;padding:22px 24px;display:flex;align-items:center;gap:18px}
-.stat .num{font-size:50px;font-weight:800;color:#4A7FA0;line-height:1;letter-spacing:-.02em}
-.stat .lab{font-size:13px;font-weight:700;color:var(--ink);text-transform:uppercase;line-height:1.3}
-.method,.method2{text-align:center;color:#2F3B47;font-size:15.5px;text-wrap:balance}.method{margin-top:22px !important}.method2{margin-top:4px !important}
-.dot{display:none}
-#hd-lp .method,#hd-lp .method2{margin-left:auto;margin-right:auto}
 /* faq */
+.faq-photo{display:none}
 .faq{margin-top:26px;display:grid;gap:10px}
 .faq div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
-.faq h3{font-size:16px;font-weight:700;color:var(--ink)}
-.faq p{font-size:15px;color:#2F3B47;margin-top:4px}
+.faq h3{font-size:16px;font-weight:700;color:var(--ink);text-wrap:balance}
+.faq p{font-size:15px;color:#2F3B47;margin-top:4px !important;text-wrap:pretty}
 /* closing */
 .final{background:linear-gradient(180deg,#fff 0%,var(--cream) 100%)}
 .final .hd-form-card{margin-top:26px}
 footer{background:var(--ink);color:#C9D4EA;font-size:13px;text-align:center;padding:22px 0 96px}
 footer a{color:#fff !important}
 footer p+p{margin-top:6px !important}
-/* sticky */
+/* sticky (phone) */
 .hd-sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .2s}
 .hd-sticky.hd-on{transform:none}
-.hd-sticky a{flex:1;display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:12px;background:var(--or-d);color:#fff !important;font-weight:700;text-decoration:none}
+.hd-sticky a{flex:1;display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:12px;background:var(--or);color:#fff !important;font-weight:700;text-decoration:none}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hd-sticky{transition:none}}
-@media(min-width:900px){
+
+/* ---------- DESKTOP, 960px and wider ---------- */
+@media(min-width:960px){
+ .wrap{max-width:1200px;padding:0 48px}
  .hd-top .wrap{height:60px}.hd-logo{width:140px}
- .hero{padding:56px 0 72px}
- .hero .wrap{grid-template-columns:1fr 440px;gap:56px;align-items:center}
- #hd-lp h1{font-size:50px}
- .hd-sub{font-size:18px}
- .hd-form-card{padding:28px 28px 20px}
- .hd-form-title{font-size:25px}
+ /* hero: full-width photo, navy-to-clear fade, copy and form stacked on the left */
+ .hero{background:var(--ink);padding:36px 0 40px;min-height:780px;overflow:hidden}
+ .hero-photo{display:block;position:absolute;top:0;right:0;bottom:0;width:66%;z-index:0;
+   background:url(assets/hero-garage-gym.jpg) no-repeat;background-size:cover;background-position:62% 22%;transform:scaleX(-1)}
+ .hero:before{content:"";position:absolute;inset:0;z-index:1;
+   background:linear-gradient(90deg,#152966 0%,#152966 34%,rgba(21,41,102,.88) 44%,rgba(21,41,102,.35) 58%,rgba(21,41,102,0) 70%)}
+ .hero .wrap{display:block}
+ .herocol{max-width:480px}
+ .hd-eyebrow{color:var(--cream)}
+ #hd-lp h1{font-size:44px;color:#fff;margin-top:8px}
+ #hd-lp .hd-sub{font-size:18px;color:#E9F1F8;margin-top:10px}
+ .formcol{margin-top:22px}
+ .hd-form-card{padding:22px 26px 16px;border:0;box-shadow:0 20px 50px rgba(0,0,0,.28)}
+ .hd-form-title{font-size:23px}
+ .rate1{text-align:left;color:#C9D4EA}
+ .rate1 b{color:#fff}
+ .hd-btn{font-size:17px}
  .sec{padding:96px 0}
  #hd-lp h2{font-size:38px}
+ /* value: card left, photo right */
+ .value .wrap{display:grid;grid-template-columns:minmax(0,1fr) 420px;column-gap:64px;align-items:center}
+ .value .kicker,.value h2{text-align:left !important;grid-column:1}
+ .value .head{grid-column:1;grid-row:1;align-self:end}
+ .value-grid{display:contents}
+ .vcard{grid-column:1;grid-row:2;margin-top:28px;align-self:start}
+ .vphoto{grid-column:2;grid-row:1 / span 2;max-height:560px}
+ /* founder: text left, portrait on navy right */
+ .gino .wrap{display:grid;grid-template-columns:minmax(0,1fr) 440px;column-gap:72px;align-items:center}
+ .gcopy{text-align:left}
+ .gino .kicker,.gino h2{text-align:left !important}
+ .glead{font-size:18px;max-width:540px}
+ .gpanel{margin:0;max-width:none;width:100%}
+ /* reviews */
  .gcard{display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:center;padding:28px 30px}
  .gtop{text-align:left;border-right:1px solid var(--line);padding-right:24px}
  .gclinics{margin:0;grid-template-columns:repeat(3,1fr)}
  .gclinics li{display:block;text-align:center;padding:16px 10px}
  .gclinics li span{display:block}
- .quotes{grid-template-columns:1fr 1fr}
- .inc{grid-template-columns:1fr 1fr;gap:16px}
- .pillcard{padding:40px 36px}
- .stats{grid-template-columns:1fr 1fr}
- .stat{flex-direction:column;text-align:center;gap:10px;padding:30px}
- .faq{grid-template-columns:1fr 1fr}
+ .quotes{grid-template-columns:1fr 1fr;align-items:start}
+ /* faq: photo left, questions right */
+ .faqsec .wrap{display:grid;grid-template-columns:440px minmax(0,1fr);column-gap:64px;align-items:center}
+ .faq-photo{display:block;grid-column:1;grid-row:1 / span 2;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:40% 30%;border-radius:20px}
+ .faqsec h2{grid-column:2;text-align:left !important;align-self:end}
+ .faq{grid-column:2;align-self:start;margin-top:24px}
+ /* closing */
+ .sec.final{padding-top:72px}
  .final .hd-form-card{max-width:520px;margin-left:auto;margin-right:auto}
  footer{padding-bottom:22px}
  .hd-sticky{display:none}
- .dot{display:inline}.mbr{display:none}
- .hd-btn{font-size:17px}
 }
-
-/* one-line rating under the hero form */
-.rate1{margin:12px 0 0 !important;text-align:center;font-size:13.5px;color:var(--mute);white-space:nowrap}
-.rate1 b{color:var(--ink)}
-.rate1s{color:var(--star);letter-spacing:1px;margin-right:4px}
-.formcol{min-width:0}
-
-/* design-audit fixes 2026-11-20 */
-#hd-lp .hd-sub{margin-top:12px}
-.faq h3{text-wrap:balance}
-.faq p{text-wrap:pretty}
-.r-pres p{text-wrap:balance}
-.method{max-width:520px}
-.stat{background:var(--sand)}
-@media(max-width:899px){
- .stat .num{min-width:5.4ch}
- .pillcard{padding:0;background:none}
-}
-@media(min-width:900px){
- .hero .wrap{align-items:start}
- .hero{padding-bottom:36px}
- .sec.final{padding-top:48px}
- .quotes{align-items:start}
- .inc img{aspect-ratio:4/5;height:auto;max-height:520px;object-position:50% 0}
- .inc{align-items:center}
+@media(min-width:960px) and (max-width:1199px){
+ .hero:before{background:linear-gradient(90deg,#152966 0%,#152966 42%,rgba(21,41,102,.85) 52%,rgba(21,41,102,.3) 66%,rgba(21,41,102,0) 78%)}
+ .hero-photo{width:62%}
+ .value .wrap{grid-template-columns:minmax(0,1fr) 360px;column-gap:44px}
+ .gino .wrap{grid-template-columns:minmax(0,1fr) 380px;column-gap:48px}
+ .faqsec .wrap{grid-template-columns:360px minmax(0,1fr);column-gap:44px}
 }
 </style>
 </head>
 <body>
 <div id="hd-lp">
-<header class="hd-top"><div class="wrap"><img class="hd-logo" src="logo.webp" alt="Tutera Medical" width="492" height="144"></div></header>
+<header class="hd-top"><div class="wrap"><img class="hd-logo" src="assets/logo.webp" alt="Tutera Medical" width="492" height="144"></div></header>
 
-<section class="hero"><div class="wrap">
+<section class="hero">
+ <!-- DESKTOP-ONLY PHOTO SLOT (replaceable): drive-photos/web/drive-03-garage-gym.jpg, mirrored so he sits on the right and laughs toward the copy. Loaded only at 960px+ (CSS background). -->
+ <div class="hero-photo" aria-hidden="true"></div>
+ <div class="wrap">
+ <div class="herocol">
  <div>
   <span class="hd-eyebrow">Tired, low energy, low drive?</span>
   <h1>Free Testosterone Test <span class="hd-accent">in Scottsdale.</span></h1>
@@ -182,10 +192,10 @@ footer p+p{margin-top:6px !important}
  <div class="formcol">
  <div class="hd-form-card" id="book">
   <p class="hd-form-title">Claim 50% Off TRT +<br>Free Testosterone Test</p>
-  <p class="hd-form-sub">Pay nothing unless prescribed.</p>
+  <p class="hd-form-sub">All-inclusive TRT or pellets: $149/month</p>
   <!-- PLACEHOLDER ENDPOINT: Oscar swaps this action for the GHL lead relay. Nothing is sent anywhere real from this file. -->
   <form class="hd-mock hd-form-slot lead" action="https://PLACEHOLDER-GHL-ENDPOINT.example/lead" method="post">
-   <input type="hidden" name="lp_version" value="combo-light">
+   <input type="hidden" name="lp_version" value="v3-light-plus">
    <input type="hidden" name="lp_concept" value="free-test">
    <input type="hidden" name="clinic" value="scottsdale">
    <input type="hidden" name="form_position" value="hero">
@@ -207,58 +217,46 @@ footer p+p{margin-top:6px !important}
    <p class="hd-form-note">No credit card needed.</p>
   </form>
  </div>
- <!-- One-line Google rating under the form (the full Google block is near the bottom). -->
+ <!-- One-line Google rating under the form (the full Google block is further down). -->
  <p class="rate1"><span class="rate1s" aria-hidden="true">★★★★★</span> <b>Rated 5.0 on Google</b> · 874 reviews</p>
  </div>
-</div></section>
+ </div>
+ </div>
+</section>
 
-<!-- 1. Piece 7: the light receipt, the one price block -->
-<section class="sec"><div class="wrap narrow">
- <p class="kicker">What you pay, and when</p>
- <h2>You pay only if a provider prescribes.</h2>
- <div class="receipt">
-  <p class="r-label">Before a prescription</p>
-  <div class="r-row"><span>Free consultation</span><b>$0</b></div>
-  <div class="r-row"><span>Testosterone test (in-office labs)</span><b>$0</b></div>
-  <div class="r-row"><span>Provider review of your results</span><b>$0</b></div>
-  <div class="r-pres">
-   <h3>Only if a provider prescribes</h3>
-   <p>TRT injections or pellets, your choice. Medication and follow-up labs included.</p>
-   <p class="r-price"><s>$299</s>$149<small>/mo</small></p>
+<!-- What you pay + what's included, merged into one card so neither the list nor the price shows twice on a screen. -->
+<section class="sec value"><div class="wrap">
+ <div class="head">
+  <p class="kicker">What you pay, and when</p>
+  <h2>You pay only if a provider prescribes.</h2>
+ </div>
+ <div class="value-grid">
+  <div class="vcard">
+   <div class="vrow"><span>Testosterone test</span><b class="free">Free</b></div>
+   <div class="vrow"><span>Consultation</span><b class="free">Free</b></div>
+   <div class="vrow"><span>Injections or pellets, when prescribed</span><b class="inc">Included</b></div>
+   <div class="vrow"><span>Specialized provider <span class="nw">check-ins</span></span><b class="inc">Included</b></div>
+   <div class="vrow"><span>Follow-up labs</span><b class="inc">Included</b></div>
+   <div class="vprice"><span>If prescribed</span><strong><s>$299</s>$149<small>/mo</small></strong></div>
+   <p class="vsave">Save $150 a month (50% off)</p>
   </div>
-  <p class="r-foot">50% off. The ongoing price, not an introductory rate.</p>
+  <!-- PHOTO SLOT (replaceable): program-boxing.jpg, the photo combos/light shows in this spot today. -->
+  <img class="vphoto" src="assets/program-boxing.jpg" width="896" height="1120" alt="">
  </div>
 </div></section>
 
-<!-- 3. Piece 4: the one included list (nothing already in the receipt) -->
-<section class="sec alt"><div class="wrap">
- <h2>Everything Included. One Simple Cost.</h2>
- <div class="inc">
-  <!-- IMAGE SLOT, REPLACEABLE: Jacob may pick a different photo. Now combos/photos/r2-trailhead-navy-tee-hands-hips.jpg, web-sized to 900px (included-trailhead.jpg); 4:5 crop anchored at the top so head and shoulders stay in frame. -->
-  <!-- 2026-11-20 (Jacob): navy-tee trailhead photo rejected; now program-boxing.jpg (combos/photos/r3-gemini-boxing.jpg), same photo combos/mixed uses in its matching section. -->
-  <img src="program-boxing.jpg" width="896" height="1120" alt="" style="object-fit:cover;object-position:50% 55%">
-  <div class="pillcard"><ul class="pills">
-   <li>A personalized TRT protocol</li>
-   <li>Licensed provider consultations</li>
-   <li>Ongoing monitoring</li>
-   <li>No hidden fees</li>
-  </ul></div>
+<!-- Dr. Gino Tutera. Desktop look from v3/hybrid: text left, cut-out portrait on a rounded navy panel right. -->
+<section class="sec alt gino"><div class="wrap">
+ <div class="gcopy">
+  <p class="kicker">The Tutera method</p>
+  <h2>Built on 10 U.S. Patents.</h2>
+  <p class="glead">Tutera Medical was founded by Dr. Gino Tutera, a board-certified OB/GYN who created the SottoPelle&reg; Method. He is the named inventor on 10 U.S. patents for its individualized pellet-dosing system. More than 250,000 patients have been treated with it.</p>
  </div>
+ <div class="gpanel"><img src="assets/gino.webp" width="1100" height="1100" loading="lazy" alt="Dr. Gino Tutera"></div>
 </div></section>
 
-<!-- 4. Piece 5: stat tiles, method text cut to two short lines -->
-<section class="sec"><div class="wrap">
- <h2>Built on 40 Years of Research.</h2>
- <div class="stats narrow">
-  <div class="stat"><span class="num">250K+</span><span class="lab">Patients served<br>worldwide</span></div>
-  <div class="stat"><span class="num">3,500+</span><span class="lab">Providers trained<br>in the method</span></div>
- </div>
- <p class="method narrow">Developed by the late Dr. Gino Tutera, a board-certified OBGYN. Every Tutera program is built on his dosing method.</p>
-</div></section>
-
-<!-- 2. Piece 3: the one rating block, then Tutera's two published reviews -->
 <!-- GOOGLE RATING: count live-checked 2026-11-19 from the public Google listings: Scottsdale 5.0 (422), Chandler 5.0 (252), Glendale 5.0 (200) = 874. -->
-<section class="sec alt"><div class="wrap">
+<section class="sec"><div class="wrap">
  <h2>What our patients say</h2>
  <div class="gcard">
   <div class="gtop">
@@ -278,8 +276,9 @@ footer p+p{margin-top:6px !important}
  </div>
 </div></section>
 
-<!-- 5. Short FAQ -->
-<section class="sec"><div class="wrap">
+<section class="sec alt faqsec"><div class="wrap">
+ <!-- DESKTOP-ONLY PHOTO SLOT (replaceable): drive-photos/web/drive-04-tailgate.jpg. Hidden on phones (lazy, so not downloaded there). -->
+ <img class="faq-photo" src="assets/side-tailgate.jpg" width="1536" height="1152" loading="lazy" alt="">
  <h2>Questions men ask</h2>
  <div class="faq">
   <div><h3>What happens at the first visit?</h3><p>In-office bloodwork, then a talk with your provider about symptoms and goals.</p></div>
@@ -289,15 +288,14 @@ footer p+p{margin-top:6px !important}
  </div>
 </div></section>
 
-<!-- 6. Closing form -->
 <section class="sec final"><div class="wrap">
  <h2>Ready to take control?</h2>
  <div class="hd-form-card">
   <p class="hd-form-title">Claim 50% Off TRT +<br>Free Testosterone Test</p>
-  <p class="hd-form-sub">Pay nothing unless prescribed.</p>
+  <p class="hd-form-sub">All-inclusive TRT or pellets: $149/month</p>
   <!-- PLACEHOLDER ENDPOINT: Oscar swaps this action for the GHL lead relay. -->
   <form class="hd-mock hd-form-slot lead" action="https://PLACEHOLDER-GHL-ENDPOINT.example/lead" method="post">
-   <input type="hidden" name="lp_version" value="combo-light">
+   <input type="hidden" name="lp_version" value="v3-light-plus">
    <input type="hidden" name="lp_concept" value="free-test">
    <input type="hidden" name="clinic" value="scottsdale">
    <input type="hidden" name="form_position" value="footer">
@@ -334,7 +332,6 @@ footer p+p{margin-top:6px !important}
 (function () {
   var root = document.getElementById('hd-lp');
   if (!root) return;
-
   /* Every "#book" button scrolls to the nearest form. */
   var forms = root.querySelectorAll('.hd-form-card');
   root.querySelectorAll('a[href="#book"]').forEach(function (a) {
@@ -346,7 +343,6 @@ footer p+p{margin-top:6px !important}
       best.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
-
   /* Sticky bar: visible on mobile while no form's submit button is fully on screen and no form field is in use. */
   var bar = document.getElementById('hd-sticky');
   if (bar) {
