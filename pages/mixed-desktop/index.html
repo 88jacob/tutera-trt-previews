@@ -262,6 +262,10 @@ footer p+p{margin-top:4px}
   .close .wrap{position:relative;text-align:left}
   .close .fcard{margin:28px 0 0}
 }
+
+/* Jacob 2026-11-20: phones now show the numbered program steps too (the dot pills are gone), as on v2/mixed-value-stack. */
+.incl .incl-txt .kick{margin-bottom:10px}
+@media (max-width:959px){.incl .steps{margin-top:16px}}
 </style>
 </head>
 <body>
@@ -330,18 +334,12 @@ footer p+p{margin-top:4px}
 <!-- 4. LIGHT: liked piece 4 (clones/ageless). Photo plus three pills, each a fact not already in the price cards. -->
 <section class="incl">
   <div class="wrap center">
-    <h2 class="ph-only">Everything Included. <span class="ac">One Simple Cost.</span></h2>
-    <div class="incl-txt dk-only"><span class="kick">How the program works</span><h2>From free test to <span class="ac">treatment plan.</span></h2></div>
+    <div class="incl-txt"><span class="kick">How the program works</span><h2>From free test to <span class="ac">treatment plan.</span></h2></div>
     <div class="duo">
       <!-- IMAGE SLOT, REPLACEABLE: Jacob may pick a different photo. Now combos/photos/r2-trailhead-navy-tee-hands-hips.jpg, web-sized to 900px (included-trailhead.jpg); crop anchored at the top so head and shoulders stay in frame. -->
       <img src="included-trailhead.jpg" width="900" height="1125" loading="lazy" alt="" style="object-fit:cover;object-position:50% 0">
-      <ul class="pills ph-only">
-        <li>A personalized TRT protocol</li>
-        <li>Pellet insertions included</li>
-        <li>We call to confirm your visit</li>
-      </ul>
     </div>
-    <ol class="steps dk-only">
+    <ol class="steps">
       <li>Bloodwork at our Scottsdale clinic.</li>
       <li>A provider reviews your results.</li>
       <li>A personalized TRT plan.</li>
