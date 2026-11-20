@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Tutera TRT landing pages: previews</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#1d2433;background:#eef0f4}
+button,a{font:inherit}
+.app{display:flex;height:100vh;height:100dvh}
+aside{width:290px;flex:none;background:#fff;border-right:1px solid #dde1e8;display:flex;flex-direction:column;overflow-y:auto}
+.head{padding:20px 18px 12px}
+h1{font-size:18px;margin:0 0 6px;line-height:1.25}
+.note{margin:0;font-size:13px;color:#5b6475}
+.menu{list-style:none;margin:0;padding:6px 10px 16px}
+.menu a{display:flex;gap:12px;align-items:center;padding:8px;border-radius:10px;color:inherit;text-decoration:none}
+.menu a:hover{background:#f3f5f8}
+.menu a[aria-current="true"]{background:#e4ecfb;box-shadow:inset 0 0 0 1px #b9cdf3}
+.menu img{width:64px;height:80px;object-fit:cover;object-position:top;border-radius:6px;border:1px solid #dde1e8;flex:none;background:#f3f5f8}
+.menu .n{font-weight:600}
+.menu .i{display:block;font-size:12px;color:#7a8394;font-weight:400}
+main{flex:1;min-width:0;display:flex;flex-direction:column}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px;background:#fff;border-bottom:1px solid #dde1e8}
+.bar .title{font-weight:600;margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg{display:inline-flex;border:1px solid #c9cfda;border-radius:8px;overflow:hidden}
+.seg button,.btn{border:0;background:#fff;padding:7px 14px;cursor:pointer;color:#1d2433}
+.seg button+button{border-left:1px solid #c9cfda}
+.seg button[aria-pressed="true"]{background:#1d2433;color:#fff}
+.pair{display:inline-flex;gap:6px}
+.btn{border:1px solid #c9cfda;border-radius:8px}
+.btn:hover,.seg button:hover:not([aria-pressed="true"]){background:#f3f5f8}
+.open{color:#2457c5;text-decoration:none;white-space:nowrap}
+.open:hover{text-decoration:underline}
+.stage{flex:1;min-height:0;overflow:hidden;display:flex;justify-content:center;padding:12px}
+.frame{background:#fff;border:1px solid #c9cfda;border-radius:12px;overflow:hidden;box-shadow:0 6px 24px rgba(20,30,50,.12);flex:none}
+.frame iframe{border:0;display:block;transform-origin:0 0;background:#fff}
+.empty{margin:auto;color:#7a8394}
+.mbar{display:none}
+/* Narrow screens (an actual phone): the menu is the home screen; a chosen page opens full-screen. */
+@media (max-width:899px){
+  .app{display:block;height:auto}
+  aside{width:auto;border:0;min-height:100vh;min-height:100dvh}
+  .menu img{width:72px;height:96px}
+  .menu a{padding:10px}
+  main{display:none}
+  body.viewing aside{display:none}
+  body.viewing main{display:flex;position:fixed;inset:0}
+  .bar{display:none}
+  .mbar{display:flex;align-items:center;gap:8px;padding:8px 10px;padding-top:max(8px,env(safe-area-inset-top));background:#1d2433;color:#fff;font-size:14px}
+  .mbar a{color:#fff;text-decoration:none;white-space:nowrap}
+  .mbar .title{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.8;text-align:center}
+  .mbar button{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:6px;padding:3px 10px;cursor:pointer}
+  .stage{padding:0}
+  .frame{border:0;border-radius:0;box-shadow:none;width:100%!important;height:100%!important}
+  .frame iframe{width:100%!important;height:100%!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="head">
+      <h1>Tutera TRT landing pages: previews</h1>
+      <p class="note">Draft previews. Forms and phone numbers are placeholders.</p>
+    </div>
+    <ul class="menu" id="menu"></ul>
+  </aside>
+  <main>
+    <div class="mbar">
+      <a href="#" id="back">&larr; Back to all pages</a>
+      <span class="title" id="mtitle"></span>
+      <button type="button" id="mprev" aria-label="Previous page">&lsaquo;</button>
+      <button type="button" id="mnext" aria-label="Next page">&rsaquo;</button>
+    </div>
+    <div class="bar">
+      <span class="title" id="title"></span>
+      <span class="seg" role="group" aria-label="Preview size">
+        <button type="button" id="phone" aria-pressed="true">Phone</button>
+        <button type="button" id="desktop" aria-pressed="false">Desktop</button>
+      </span>
+      <span class="pair">
+        <button type="button" class="btn" id="prev">&larr; Prev</button>
+        <button type="button" class="btn" id="next">Next &rarr;</button>
+      </span>
+      <a class="open" id="open" href="#" target="_blank" rel="noopener">Open this page on its own &nearr;</a>
+    </div>
+    <div class="stage" id="stage">
+      <div class="frame" id="frame"><iframe id="view" title="Page preview"></iframe></div>
+    </div>
+  </main>
+</div>
+<script>
+(function(){
+  var PAGES=[
+    {id:'mixed',name:'Light and dark'},
+    {id:'mixed-desktop',name:'Light and dark: new desktop'},
+    {id:'mixed-value-stack',name:'Light and dark: value stack'},
+    {id:'mixed-price-first',name:'Light and dark: price on the form'},
+    {id:'fable6-bold',name:'Fable-6, bold'}
+  ];
+  var $=function(id){return document.getElementById(id)};
+  var menu=$('menu'),view=$('view'),frame=$('frame'),stage=$('stage');
+  var narrow=window.matchMedia('(max-width:899px)');
+  var mode='phone';try{mode=localStorage.getItem('tutera_preview_mode')||'phone'}catch(e){}
+  var cur=-1;
+
+  PAGES.forEach(function(p,i){
+    var li=document.createElement('li');
+    li.innerHTML='<a href="#'+p.id+'"><img src="thumbs/'+p.id+'.jpg" alt="" loading="lazy" width="64" height="80"><span class="n">'+p.name+'<span class="i">'+(i+1)+' of '+PAGES.length+'</span></span></a>';
+    menu.appendChild(li);
+  });
+
+  function url(i){return 'pages/'+PAGES[i].id+'/'}
+  function layout(){
+    if(narrow.matches||cur<0)return;
+    var w=stage.clientWidth-24,h=stage.clientHeight-24;
+    if(mode==='phone'){
+      var fw=Math.min(390,w);
+      frame.style.width=fw+'px';frame.style.height=h+'px';
+      view.style.width=fw+'px';view.style.height=h+'px';view.style.transform='none';
+    }else{
+      var s=Math.min(1,w/1440);
+      frame.style.width=Math.floor(1440*s)+'px';frame.style.height=h+'px';
+      view.style.width='1440px';view.style.height=Math.ceil(h/s)+'px';view.style.transform='scale('+s+')';
+    }
+  }
+  function setMode(m){
+    mode=m;try{localStorage.setItem('tutera_preview_mode',m)}catch(e){}
+    $('phone').setAttribute('aria-pressed',m==='phone');$('desktop').setAttribute('aria-pressed',m==='desktop');
+    layout();
+  }
+  function show(i){
+    cur=i;
+    var links=menu.querySelectorAll('a');
+    links.forEach(function(a,k){a.setAttribute('aria-current',k===i?'true':'false')});
+    if(i<0){document.body.classList.remove('viewing');document.title='Tutera TRT landing pages: previews';return}
+    var p=PAGES[i];
+    if(view.getAttribute('src')!==url(i))view.setAttribute('src',url(i));
+    $('title').textContent=(i+1)+'. '+p.name;$('mtitle').textContent=p.name;
+    $('open').href=url(i);
+    document.title=p.name+' · Tutera previews';
+    document.body.classList.add('viewing');
+    layout();
+  }
+  function go(d){var i=((cur<0?0:cur)+d+PAGES.length)%PAGES.length;location.hash=PAGES[i].id}
+  function route(){
+    var id=location.hash.slice(1),i=-1;
+    PAGES.forEach(function(p,k){if(p.id===id)i=k});
+    if(i<0&&!narrow.matches)i=0; // wide screens always show a page
+    show(i);
+  }
+  $('phone').onclick=function(){setMode('phone')};
+  $('desktop').onclick=function(){setMode('desktop')};
+  $('prev').onclick=$('mprev').onclick=function(){go(-1)};
+  $('next').onclick=$('mnext').onclick=function(){go(1)};
+  $('back').onclick=function(e){e.preventDefault();history.replaceState(null,'',location.pathname+location.search);route();window.scrollTo(0,0)};
+  window.addEventListener('hashchange',route);
+  window.addEventListener('resize',function(){route()});
+  setMode(mode);route();
+})();
+</script>
+</body>
+</html>
