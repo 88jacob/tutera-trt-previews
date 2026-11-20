@@ -130,17 +130,6 @@
   .src{font-size:13px;color:var(--mute);margin-top:10px}
 
   /* Dr. Gino Tutera (round 3) */
-  /* The Tutera method: founder card + provider grid, one section (round 3) */
-  .crew{background:var(--sand);padding:40px 0 44px}
-  .cgrid{display:grid;gap:22px;margin-top:20px}
-  .fcard2{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 6px 18px rgba(21,41,102,.06)}
-  .fimg{flex:0 0 88px;width:88px;height:88px;border-radius:50%;overflow:hidden;background:#fff;border:3px solid var(--cream);box-shadow:0 4px 14px rgba(21,41,102,.12)}
-  .fimg img{width:100%;height:100%;transform:scale(1.75);transform-origin:50% 30%}
-  .fcard2 b{display:block;font-size:17px;font-weight:700;line-height:1.25;color:var(--ink)}
-  .fcred{display:block;font-size:14px;line-height:1.4;color:var(--mute);margin-top:4px}
-  .pgrid ul{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .pgrid img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:12px}
-  .pgrid figcaption{font-size:14px;color:var(--mute);margin-top:10px}
   .reviews .cta{margin-top:24px}
   .reviews{padding-bottom:44px}
   .rtop .gcard{margin-top:18px}
@@ -161,6 +150,7 @@
   picture{display:contents}
   .dk{display:none!important}
   footer .logo{display:none}
+  .hcut{display:none}
   footer p{display:inline}
   footer p+p::before{content:" · "}
 }
@@ -427,54 +417,47 @@
   .incl .wrap{grid-template-rows:auto auto}
   .incl .steps{display:grid;gap:14px}
   .incl .cta{margin-top:26px}
-  /* round 3: Dr. Gino Tutera */
-  .crew{background:var(--sand);padding:88px 0}
-  .crew .wrap{text-align:left}
-  .cgrid{display:grid;grid-template-columns:340px minmax(0,1fr);gap:48px;align-items:stretch;margin-top:32px}
-  .fcard2{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:12px;text-align:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(21,41,102,.08)}
-  .fimg{display:block;width:100%;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:#fff}
-  .fimg img{width:100%;height:100%;transform:scale(1.25);transform-origin:50% 22%}
-  .fcard2 b{display:block;font-size:19px;font-weight:700;line-height:1.25;color:var(--ink)}
-  .fcred{display:block;font-size:15px;line-height:1.45;color:var(--mute);margin-top:4px}
-  .pgrid ul{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .pgrid img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:12px}
-  .pgrid figcaption{font-size:14px;color:var(--mute);margin-top:12px}
   /* closing band: r3 wide, man on the right */
   .cph img{object-position:62% 40%}
   .close .txt h2{max-width:560px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar{transition:none}}
-/* Team section, compact desktop (Jacob 2026-11-20): heading + round founder portrait left, six 100x125 provider tiles right. The tiles are 200x250 crops, so they are never shown larger. */
-@media (min-width:960px){
-  .crew{padding:64px 0}
-  .crew .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:64px;align-items:center;text-align:left}
-  .crew .kicker{grid-column:1;grid-row:1}
-  .crew h2.big{grid-column:1;grid-row:2;margin-top:6px;text-wrap:balance}
-  .crew .cgrid{display:contents}
-  .crew .fcard2{grid-column:1;grid-row:3;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:22px;margin-top:26px;padding:0;background:none;border:0;border-radius:0;box-shadow:none;text-align:left}
-  .crew .fimg{flex:0 0 136px;width:136px;height:136px;aspect-ratio:auto;border-radius:50%;overflow:hidden;background:#fff;border:3px solid #fff;box-shadow:0 0 0 3px var(--ink),0 10px 22px rgba(21,41,102,.16)}
-  .crew .fimg img{width:100%;height:100%;transform:scale(1.75);transform-origin:50% 30%}
-  .crew .fcard2 b{font-size:19px;margin-top:0}
-  .crew .fcred{font-size:15px;max-width:300px}
-  .crew .pgrid{grid-column:2;grid-row:1 / span 3;margin:0}
-  .crew .pgrid ul{display:grid;grid-template-columns:repeat(3,100px);gap:14px}
-  .crew .pgrid img{width:100px;height:125px;aspect-ratio:auto;border-radius:12px}
-  .crew .pgrid figcaption{margin-top:12px;font-size:14px}
-}
 /* Desktop nav over the hero photo (Jacob 2026-11-20: "have his head go up into the nav bar and also include the phone number there too").
    The photo panel now starts at the top of the page, behind the nav; the nav is see-through over the photo (a soft navy fade behind the logo) and solid navy over the right half.
    The hero is pulled up by the nav height and its text padded down by the same amount, so the headline and form do not move. */
 @media (min-width:960px){
-  .top{position:relative;z-index:3;border-bottom:0;background:linear-gradient(90deg,transparent 45%,var(--ink) 45%)}
-  /* soft navy glow behind the logo only; it fades in every direction, so there is no edge along the bottom of the bar */
-  .top::before{content:"";position:absolute;left:0;top:0;width:45%;height:150px;pointer-events:none;background:radial-gradient(ellipse 60% 100% at 0% 0%,rgba(21,41,102,.8) 0%,rgba(21,41,102,.45) 45%,rgba(21,41,102,0) 100%)}
-  .top .wrap{position:relative}
+  /* Jacob: "no just the head in the nav bar not everything else". The bar is solid navy across the full width; only his head (img.hcut, a transparent cut-out of the same photo at the same size and position) rises over it. The logo moves right of the photo panel, in line with the headline, so the head never covers it. */
+  .top{position:relative;z-index:3;border-bottom:0;background:var(--ink)}
+  .top .wrap{position:relative;max-width:none;margin:0;padding:0 40px 0 calc(45% + 76px)}
+  .hph img.hcut{display:block;z-index:4;pointer-events:none;clip-path:inset(0 0 calc(100% - 110px) 0)}
   .call .w{margin-right:5px}
   .top .wrap{justify-content:space-between}
   .call{display:inline-flex;align-items:center;font-size:15px;font-weight:600;color:#fff;text-decoration:none;border:1px solid #2e4a94;border-radius:999px;padding:6px 13px;white-space:nowrap}
   .call:hover{border-color:var(--or)}
   .hero{margin-top:-70px;min-height:850px}
   .hero .herogrid{padding-top:114px}
+}
+/* Dr. Gino Tutera section (Page B design), shared by both layouts */
+@media (max-width:959.98px){
+  .gino{background:var(--sand);padding:40px 0 44px}
+  .gino h2.big{margin-top:6px;text-wrap:balance}
+  .glead{font-size:16px;line-height:1.55;color:var(--txt);margin-top:12px}
+  .gpanel{margin-top:22px;background:var(--ink);border-radius:16px;overflow:hidden;aspect-ratio:1/1}
+  .gpanel img{width:100%;height:100%;object-fit:contain;object-position:center bottom}
+  .gino .cta{margin-top:22px}
+}
+@media (min-width:960px){
+  .gino{padding:80px 0}
+  .gino .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,480px);column-gap:72px;align-items:center;text-align:left}
+  .gcopy{grid-column:1;grid-row:1;align-self:end}
+  .gpanel{grid-column:2;grid-row:1 / span 2;margin-top:0;width:100%}
+  .gino .cta{grid-column:1;grid-row:2;align-self:start;justify-self:start;margin-top:28px}
+  .glead{font-size:18px;max-width:520px}
+  .gino{background:var(--sand);padding:96px 0}
+  .gino h2.big{margin-top:0;text-wrap:balance}
+  .glead{line-height:1.6;color:var(--txt);margin-top:14px}
+  .gpanel{background:var(--ink);border-radius:16px;overflow:hidden;aspect-ratio:1/1}
+  .gpanel img{width:100%;height:100%;object-fit:contain;object-position:center bottom}
 }
 </style>
 </head>
@@ -494,6 +477,8 @@
   <div class="hphoto hph">
     <!-- HERO: Tutera's own sprint-start athlete, the hero of Oscar's Page A (Jacob 2026-11-20). Cropped on the PC from the original 2880x998 file (x 1060-2260) to drop the baked-in haze and most of the blue panel. Same image on phone (full-bleed) and desktop (tall panel on the left). -->
     <img src="hero-sprint.jpg" width="1200" height="998" alt="" fetchpriority="high">
+    <!-- desktop only: his head and hair cut from the same photo (rembg birefnet-portrait on the PC), drawn over the nav bar -->
+    <img class="hcut" src="hero-sprint-head.webp" width="1200" height="998" alt="">
   </div>
   <div class="wrap herogrid">
     <div class="htext">
@@ -728,28 +713,16 @@
   </div>
 </section>
 
-<!-- (shared by both layouts) The Tutera method (round 3, Jacob 2026-11-20): Dr. Gino Tutera and the providers in one section, moved out of the reviews. The six portraits are cut from Tutera's provider collage (care-team.jpg) into equal tiles; one neutral caption, no names or roles. 250K+ and 3,500+ are in the stats band above, so not repeated here. -->
-<section class="crew">
+<!-- Dr. Gino Tutera, from v3/pageb-value-stack-plus (Jacob 2026-11-20: "rip up" the providers section and use this). PARAGRAPH PENDING FACT CHECK: swap only the text inside p.glead. -->
+<section class="gino">
   <div class="wrap">
-    <p class="kicker kick">The Tutera method</p>
-    <h2 class="big">Built on 40 Years of Research.</h2>
-    <div class="cgrid">
-      <figure class="fcard2">
-        <span class="fimg"><img src="founder.jpg" width="520" height="520" loading="lazy" alt="The late Dr. Gino Tutera"></span>
-        <figcaption><b>The late Dr.&nbsp;Gino&nbsp;Tutera</b><span class="fcred">Board-certified OBGYN · developed the individualized dosing system</span></figcaption>
-      </figure>
-      <figure class="pgrid">
-        <ul>
-          <li><img src="team-1.jpg" width="200" height="250" loading="lazy" alt=""></li>
-          <li><img src="team-2.jpg" width="200" height="250" loading="lazy" alt=""></li>
-          <li><img src="team-3.jpg" width="200" height="250" loading="lazy" alt=""></li>
-          <li><img src="team-4.jpg" width="200" height="250" loading="lazy" alt=""></li>
-          <li><img src="team-5.jpg" width="200" height="250" loading="lazy" alt=""></li>
-          <li><img src="team-6.jpg" width="200" height="250" loading="lazy" alt=""></li>
-        </ul>
-        <figcaption>Tutera Medical providers.</figcaption>
-      </figure>
+    <div class="gcopy">
+      <p class="kicker kick">The Tutera method</p>
+      <h2 class="big">Built on 40 Years of Research.</h2>
+      <p class="glead">The late Dr. Gino Tutera, a board-certified OBGYN, developed the method over four decades. It has trained more than 3,500 providers and served over 250,000 patients worldwide.</p>
     </div>
+    <div class="gpanel"><img src="gino.webp" width="1100" height="1100" loading="lazy" alt="The late Dr. Gino Tutera"></div>
+    <a class="btn cta" href="#book">Book My Free Testosterone Test</a>
   </div>
 </section>
 

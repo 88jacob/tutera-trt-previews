@@ -121,9 +121,6 @@ h2.big{font-weight:800;font-size:26px;line-height:1.18;letter-spacing:-.01em;col
 .gclinics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
 .gclinics li{background:var(--sand);border-radius:10px;padding:9px 6px;text-align:center;font-size:12.5px;line-height:1.35;color:var(--mute)}
 .gclinics b{display:block;font-size:14px;color:var(--ink)}
-.team{margin-top:20px}
-.team img{border-radius:14px;width:100%;clip-path:inset(5px 0 6px 0)}
-.team figcaption{font-size:14px;color:var(--mute);margin-top:8px}
 .quotes{display:grid;gap:12px;margin-top:18px}
 .quote{background:#fff;border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:0 12px 12px 0;padding:14px 16px;font-size:15px;line-height:1.5}
 .quote cite{display:block;margin-top:6px;font-style:normal;font-weight:700;font-size:14px;color:var(--mute)}
@@ -181,8 +178,8 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 
   .reviews{padding:80px 0}
   h2.big{font-size:38px}
-  .rtop{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-  .team{margin-top:0}
+  .rtop{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end}
+  .rtop .gcard{margin-top:0}
   .quotes{grid-template-columns:repeat(3,1fr);margin-top:36px;align-items:start}
   .quote{font-size:16px}
 
@@ -192,6 +189,21 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   .close .card{max-width:500px}
   .bar{display:none}
   footer{padding-bottom:22px}
+}
+/* Dr. Gino Tutera section (Page B design, added 2026-11-20 below the reviews) */
+.gino{background:var(--sand);padding:40px 0 44px}
+.gino h2.big{margin-top:6px;text-wrap:balance}
+.glead{font-size:16px;line-height:1.55;color:var(--txt);margin-top:12px}
+.gpanel{margin-top:22px;background:var(--ink);border-radius:16px;overflow:hidden;aspect-ratio:1/1}
+.gpanel img{width:100%;height:100%;object-fit:contain;object-position:center bottom}
+.gino .cta{margin-top:22px}
+@media (min-width:860px){
+  .gino{padding:80px 0}
+  .gino .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,480px);column-gap:72px;align-items:center;text-align:left}
+  .gcopy{grid-column:1;grid-row:1;align-self:end}
+  .gpanel{grid-column:2;grid-row:1 / span 2;margin-top:0;width:100%}
+  .gino .cta{grid-column:1;grid-row:2;align-self:start;justify-self:start;margin-top:28px}
+  .glead{font-size:18px;max-width:520px}
 }
 </style>
 </head>
@@ -332,6 +344,7 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
       <div>
         <p class="kicker">What patients say</p>
         <h2 class="big">See for yourself.</h2>
+      </div>
         <div class="gcard">
           <div class="gtop">
             <p class="gword" aria-label="Google reviews"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span> <span class="gsm">reviews</span></p>
@@ -344,11 +357,6 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
             <li><b>Glendale</b>5.0 · 200</li>
           </ul>
         </div>
-      </div>
-      <figure class="team">
-        <img src="care-team.jpg" width="760" height="615" loading="lazy" alt="Tutera Medical providers">
-        <figcaption>Tutera Medical providers.</figcaption>
-      </figure>
     </div>
     <div class="quotes">
       <blockquote class="quote">“I was previously on self-injection testosterone therapy and after my first treatment with Tutera I am already convinced that this is a much better and healthier testosterone therapy. I enthusiastically recommend Tutera Medical to anyone seeking hormone replacement therapy.”<cite>Matt M.</cite></blockquote>
@@ -356,6 +364,19 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
       <blockquote class="quote">“Steve is very knowledgeable and has a practical view on arriving at the proper treatment recommendations. Thanks Steve!”<cite>Scott C.</cite></blockquote>
     </div>
     <p class="src">From Google reviews and Tutera's TRT page.</p>
+  </div>
+</section>
+
+<!-- Dr. Gino Tutera, from v3/pageb-value-stack-plus (Jacob 2026-11-20: "rip up" the providers section and use this). PARAGRAPH PENDING FACT CHECK: swap only the text inside p.glead. -->
+<section class="gino">
+  <div class="wrap">
+    <div class="gcopy">
+      <p class="kicker">The Tutera method</p>
+      <h2 class="big">Built on 40 Years of Research.</h2>
+      <p class="glead">The late Dr. Gino Tutera, a board-certified OBGYN, developed the method over four decades. It has trained more than 3,500 providers and served over 250,000 patients worldwide.</p>
+    </div>
+    <div class="gpanel"><img src="gino.webp" width="1100" height="1100" loading="lazy" alt="The late Dr. Gino Tutera"></div>
+    <a class="btn cta" href="#book">Book My Free Testosterone Test</a>
   </div>
 </section>
 
