@@ -88,6 +88,16 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
 .cap[hidden]{display:none}
 .stage.two{gap:16px}
 .mbar{display:none}
+.score{border:1px solid #2457c5;border-radius:999px;background:#eef3fd;color:#1d3f8f;padding:5px 12px;cursor:pointer;font-weight:700;white-space:nowrap}
+.score[aria-expanded="true"]{background:#2457c5;color:#fff}
+.score[hidden],.scorepanel[hidden]{display:none}
+main{position:relative}
+.scorepanel{position:absolute;z-index:5;top:56px;right:16px;width:340px;max-width:calc(100% - 24px);max-height:70%;overflow:auto;background:#fff;border:1px solid #c9cfda;border-radius:12px;box-shadow:0 10px 30px rgba(20,30,50,.18);padding:12px 14px}
+.scorepanel .sh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 8px}
+#splist{list-style:none;margin:0;padding:0;font-size:13px}
+#splist li{padding:7px 0;border-top:1px solid #eef0f4}
+#splist .g{display:flex;justify-content:space-between;font-weight:700}
+#splist .w{color:#5b6475;margin-top:2px}
 /* Narrow screens (an actual phone): the menu is the home screen; a chosen page opens full-screen. */
 @media (max-width:899px){
   .app{display:block;height:auto}
@@ -114,6 +124,9 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
   .mbar .flip button{border:0;border-radius:0;padding:3px 8px}
   .mbar .flip button[aria-pressed="true"]{background:#fff;color:#1d2433}
   .mbar .flip[hidden],.mbar .cmp[hidden],.mbar .pk[hidden]{display:none}
+  .mbar{gap:6px;flex-wrap:wrap}
+  .mbar .score{padding:3px 7px;font-size:13px;background:transparent;border-color:#9db8f2;color:#cfe0ff}
+  .scorepanel{position:fixed;top:48px;right:8px;left:8px;width:auto;max-width:none}
   .mbar .cmp{padding:3px 8px;font-size:13px;border-color:#7fd1a5;color:#7fd1a5;background:transparent}
   .mbar .cmp[aria-pressed="true"]{background:#1f7a4d;color:#fff}
   .frame{border:0;border-radius:0;box-shadow:none;width:100%!important;height:auto!important}
@@ -142,6 +155,8 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     <ul class="menu" id="menu-rest" hidden></ul>
     <button type="button" class="more" id="more-photos" aria-expanded="false" aria-controls="menu-photos"><span class="chev" aria-hidden="true">&#9656;</span> Photo options for the top picks</button>
     <div id="menu-photos" hidden></div>
+    <button type="button" class="more" id="more-copy" aria-expanded="false" aria-controls="menu-copy"><span class="chev" aria-hidden="true">&#9656;</span> Copy options for the top picks</button>
+    <div id="menu-copy" hidden></div>
   </aside>
   <main>
     <div class="mbar">
@@ -150,6 +165,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
       <button type="button" class="cmp" id="mcmp" aria-pressed="false" hidden>Compare</button>
       <span class="flip" id="flip" role="group" aria-label="Which page" hidden><button type="button" id="flipA" aria-pressed="true">Panel</button><button type="button" id="flipB" aria-pressed="false">Live</button></span>
       <button type="button" class="pk" id="mpick" aria-pressed="false" hidden>Pick</button>
+      <button type="button" class="score" id="mscore" aria-expanded="false" aria-controls="scorepanel" hidden></button>
       <button type="button" id="mprev" aria-label="Previous page">&lsaquo;</button>
       <button type="button" id="mnext" aria-label="Next page">&rsaquo;</button>
     </div>
@@ -160,6 +176,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
         <button type="button" id="desktop" aria-pressed="false">Desktop</button>
       </span>
       <button type="button" class="cmp" id="cmp" aria-pressed="false" hidden>Compare with live</button>
+      <button type="button" class="score" id="score" aria-expanded="false" aria-controls="scorepanel" hidden></button>
       <span class="pair">
         <button type="button" class="pk" id="pick" aria-pressed="false" hidden>Pick this one</button>
         <button type="button" class="btn" id="prev">&larr; Prev</button>
@@ -167,6 +184,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
       </span>
       <a class="open" id="open" href="#" target="_blank" rel="noopener">Open this page on its own &nearr;</a>
     </div>
+    <div class="scorepanel" id="scorepanel" role="dialog" aria-label="Grader scores" hidden><p class="sh"><b id="sptitle"></b><button type="button" class="linkbtn" id="spclose">Close</button></p><ul id="splist"></ul></div>
     <div class="stage" id="stage">
       <div class="col" id="colA"><p class="cap" id="capA" hidden><span class="cl" id="capAl"></span><button type="button" class="pk" id="pickA" aria-pressed="false">Pick panel</button></p><div class="frame" id="frame"><iframe id="view" title="Page preview"></iframe></div></div>
       <div class="col" id="colB" hidden><p class="cap" id="capB"><span class="cl" id="capBl"></span><button type="button" class="pk" id="pickB" aria-pressed="false">Pick live</button></p><div class="frame" id="frame2"><iframe id="view2" title="Live top pick"></iframe></div></div>
@@ -189,8 +207,10 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     {id:'three-price-cards',name:'Three Price Cards'},
     {id:'dark-value-stack',name:'Dark Value Stack (garage-gym hero)'}
   ];
-  // Photo options: one entry per family; a family takes its page's current name, wherever that page sits in the menu. Adding a family = one line here.
-  // panel: site folder under pages/photos/ of the "Panel pick" variant (listed first, comparable with the live pick). sets:false = no numbered sets.
+  // Option groups: each lets Jacob choose one option per page (or keep the live page); picks are stored per group + family
+  // ("photos:offer-hero", "copy:offer-hero"). A family takes its page's current name, wherever that page sits in the menu.
+  // Adding a family = one line in its group's list; adding a group = one GROUPS entry plus its menu button and box in the HTML.
+  // Photos: panel = site folder under pages/photos/ of the "Panel pick" variant (listed first, comparable with the live pick). sets:false = no numbered sets.
   var SETS=['Paddleboard','Gym chalk-up','Garage gym','Truck tailgate','Basketball','Tennis','Cafe','Basketball, film look'];
   var PHOTO_FAMILIES=[
     {key:'value-stack',pick:'mixed-value-stack',panel:'value-stack-panel'},
@@ -201,40 +221,67 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     {key:'dark-value-stack',pick:'dark-value-stack',panel:'dark-value-stack-panel'},
     {key:'gameday',pick:'gameday',panel:'gameday-panel',sets:false}
   ];
-  // Pick groups: each group lets Jacob choose one option per top pick (or keep the live page). A later group
-  // (e.g. copy options) is one more entry here with its own families; picks are stored per group + family.
-  var GROUPS=[{key:'photos',label:'Photos',fams:PHOTO_FAMILIES}];
+  // Copy: eight copy variants per Top pick, site folders pages/copy/<key>-<n>/; each is comparable with its live page.
+  var COPY_SETS=['Price first','Symptoms first','Proof first','Process first','Identity first','Risk reversal first','Local clinic first','Method first'];
+  var COPY_FAMILIES=[
+    {key:'offer-hero',pick:'offer-hero'},
+    {key:'gameday',pick:'gameday'},
+    {key:'main-dark-value-stack',pick:'main-dark-value-stack'}
+  ];
+  var GROUPS=[
+    {key:'photos',label:'Photos',fams:PHOTO_FAMILIES,box:'menu-photos',btn:'more-photos',keep:'Keep live (no change)'},
+    {key:'copy',label:'Copy',fams:COPY_FAMILIES,box:'menu-copy',btn:'more-copy',keep:'Keep live copy (no change)'}
+  ];
+  // Grader scores, keyed by page id ('copy/offer-hero-3', 'photos/offer-hero-panel'):
+  // {average:7.8, graders:[{name:'…', score:8, why:'one line'}]}. average is worked out from graders when left out.
+  // A scored variant shows a Score chip in its view; within a sub-group, scored entries are listed highest average first.
+  // addScores takes a grader file as delivered: {graders:[...], scores:{<page key>:{<set>:{average, graders:[{name,score,why}]}}}}
+  // and files each set under '<group>/<page key>-<set>' (set may be a number or, for photos, 'panel').
+  var SCORES={};
+  function addScores(grp,file){var sc=file.scores||{};Object.keys(sc).forEach(function(k){Object.keys(sc[k]).forEach(function(n){var v=sc[k][n];
+    SCORES[grp+'/'+k+'-'+n]={average:v.average,graders:(v.graders||[]).map(function(g){return {name:String(g.name).charAt(0).toUpperCase()+String(g.name).slice(1),score:g.score,why:g.why}})}})})}
+  // Copy scores: v5/grades/COPY-SCORES.json, 2026-11-20.
+  addScores('copy',{"graders":["astra","carbon","fable","opus"],"scores":{"offer-hero":{"1":{"average":7.6,"graders":[{"name":"astra","score":8.1,"why":"Immediate ongoing price and adjacent prescription condition; discount CTA asks for treatment before testing."},{"name":"carbon","score":6.9,"why":"Clear ongoing $149 price and $0 start, but repeats the value card's pricing three times above fold."},{"name":"fable","score":7.6,"why":"Price and $0 start land instantly; headline duplicates the card beside it and button claims a discount pre-prescription."},{"name":"opus","score":7.8,"why":"Price headline matches price ads, condition in form title; but repeats the value card's price."}]},"2":{"average":7.7,"graders":[{"name":"astra","score":8.1,"why":"Recognizable symptoms lead naturally to testing; value card delays the phone form and repeats the price argument."},{"name":"carbon","score":8.6,"why":"Nails the tired midlife man's mindset without repeating the value card, bridging cleanly into $0 unless prescribed."},{"name":"fable","score":7,"why":"Speaks to his tiredness and the card carries the offer; headline never says TRT and sounds like everyone."},{"name":"opus","score":6.9,"why":"Relatable symptoms headline, but no TRT or offer until the card; condition kept beside free."}]},"3":{"average":5.2,"graders":[{"name":"astra","score":5.8,"why":"Award leads instead of the offer; generic form title makes the free test harder to recognize."},{"name":"carbon","score":3.4,"why":"Self-congratulatory award headline hides the free test below the mobile fold and duplicates desktop's Ranking Arizona line."},{"name":"fable","score":5.6,"why":"Award headline says nothing about what he gets; card rescues the offer, form title is dead weight."},{"name":"opus","score":6,"why":"Award headline could be any clinic; 'Book With Tutera Medical' form title wastes the ask."}]},"4":{"average":6.1,"graders":[{"name":"astra","score":6.5,"why":"Clear in-office sequence, but little personal motivation; free-test form separates the prescription condition from its offer."},{"name":"carbon","score":6.2,"why":"Fixed value card rescues its missing $149 price, but dry process copy and call-confirmation line add friction."},{"name":"fable","score":6,"why":"Small safe next step, but flat process headline gives no reason to care; card supplies the price."},{"name":"opus","score":5.6,"why":"'Labs & TRT Done In-Office' is vague; form subline spends space on a confirm call."}]},"5":{"average":7.4,"graders":[{"name":"astra","score":7.3,"why":"Testing and conditional price are clear; circular identity headline excludes men who have never checked their levels."},{"name":"carbon","score":8.1,"why":"Supplies the pay-nothing condition above the value card with low-pressure 'Get Your Number' framing; slightly circular headline."},{"name":"fable","score":7.2,"why":"Full offer with condition in subline and form; headline is circular and takes a second read."},{"name":"opus","score":7,"why":"Distinct identity headline with free plus condition subline; headline lacks TRT keyword."}]},"6":{"average":8.5,"graders":[{"name":"astra","score":8.5,"why":"Distinctive payment condition anchors the value stack; unsupported insurance claim and approval wording weaken otherwise exceptional clarity."},{"name":"carbon","score":8.5,"why":"Instant two-second offer clarity and unique pay-nothing hook, held back by repeating the card's $149/$299 line."},{"name":"fable","score":8.6,"why":"Unique no-risk headline, price in subline, card confirms it; one argument top to bottom, headline lacks TRT."},{"name":"opus","score":8.4,"why":"Leads with pay-nothing condition no competitor uses; card then shows price; clear and safe."}]},"7":{"average":7.2,"graders":[{"name":"astra","score":7.8,"why":"Scottsdale and in-person care match intent precisely; crowded form headline combines testing and discount before the next step."},{"name":"carbon","score":6.4,"why":"Strong Scottsdale TRT search match, but adds unapproved Ste 101, over-repeats the address, and uses clunky CTA."},{"name":"fable","score":7,"why":"Strong TRT Scottsdale match and complete offer; address eyebrow wasted, form title and button clunky."},{"name":"opus","score":7.4,"why":"Scottsdale and TRT match local searches; form title packs free test and 50% off with condition."}]},"8":{"average":5.8,"graders":[{"name":"astra","score":6,"why":"Free testing and conditional price are clear, but invented six-to-eight-week labs violate the explicit offer limits."},{"name":"carbon","score":4.9,"why":"Generic clinic headline duplicates the value card, and invented '6-8 week labs' timeline violates offer rules."},{"name":"fable","score":6.3,"why":"Offer is complete in the form, but headline is generic and 6-8 week labs steps outside the offer."},{"name":"opus","score":6.2,"why":"'Labs and goals' is vague; '6-8 week labs' adds a timeline outside the offer."}]}},"gameday":{"1":{"average":7.9,"graders":[{"name":"astra","score":7.8,"why":"Compact pricing survives capitals well; treatment-discount CTA feels larger than the initial testing commitment."},{"name":"carbon","score":7.8,"why":"With no value card, bold $149 ongoing price and $0 start work well; 'Claim 50% Off' feels pushy."},{"name":"fable","score":7.8,"why":"Blunt price headline suits the all-caps page and form title adds $0 start; button over-claims slightly."},{"name":"opus","score":8.1,"why":"Caps price headline reads instantly with no card; '$0 to start, $149 if prescribed' form title."}]},"2":{"average":7.6,"graders":[{"name":"astra","score":8.5,"why":"Short symptom beats suit the capitals and lead directly into a low-commitment test with its payment condition."},{"name":"carbon","score":8.5,"why":"Punchy symptom headline matches the gritty lifter photo and makes checking levels feel small, safe, and clear."},{"name":"fable","score":6.8,"why":"Symptom headline hits him, but the offer sits in small form text and TRT is missing."},{"name":"opus","score":6.6,"why":"Symptoms hit his situation, but first screen never says TRT; offer only in small form text."}]},"3":{"average":4.7,"graders":[{"name":"astra","score":5.1,"why":"Free testing appears only on the button; award and generic booking title obscure the immediate offer."},{"name":"carbon","score":3.3,"why":"Without a value card, visitors cannot tell what they get until the button; pure institutional chest-beating."},{"name":"fable","score":4.8,"why":"No card here to rescue it: award headline, no free test stated until the button."},{"name":"opus","score":5.5,"why":"Award headline plus generic form title; offer clarity depends on tiny subline text."}]},"4":{"average":5.4,"graders":[{"name":"astra","score":5.8,"why":"In-office convenience is clear, but the first screen omits treatment price and distances the condition from free testing."},{"name":"carbon","score":5.1,"why":"Omits the $149 monthly price from the entire first screen and warns him the clinic will call."},{"name":"fable","score":5.4,"why":"Free test is clear in the form, but no price on screen and headline is inert."},{"name":"opus","score":5.2,"why":"Process headline says little to a man who searched TRT price or free test."}]},"5":{"average":7.2,"graders":[{"name":"astra","score":7.3,"why":"Safe testing offer reaches the form clearly; long capitalized identity headline spends attention on a circular proposition."},{"name":"carbon","score":7.9,"why":"Fits the garage gym aesthetic with clear free-test terms and 'Get Your Number' autonomy, but omits 'TRT'."},{"name":"fable","score":7,"why":"Free, condition and price all on first screen; headline still vague about what the clinic does."},{"name":"opus","score":6.6,"why":"Identity line has edge, but long caps wrap; free test condition carried by small subline."}]},"6":{"average":8.7,"graders":[{"name":"astra","score":8.5,"why":"Payment headline removes uncertainty before the form; approval language implies a lab-charge question the copy should resolve."},{"name":"carbon","score":9,"why":"Unmatched two-second clarity on a cardless screen, pairing the unique pay-nothing hook with $149/$299 pricing above fold."},{"name":"fable","score":8.7,"why":"Risk reversal, price and free test read in two seconds on a form-led page; nobody else says it."},{"name":"opus","score":8.5,"why":"Caps 'Pay nothing unless prescribed' plus $149 subline: free, condition and price in two seconds."}]},"7":{"average":7.2,"graders":[{"name":"astra","score":7.7,"why":"Strong local match and price clarity; lengthy stacked form heading slows a straightforward in-person testing offer."},{"name":"carbon","score":6.8,"why":"Clear local TRT offer on a cardless screen, hurt by unapproved Ste 101 and awkward repetitive CTA."},{"name":"fable","score":6.9,"why":"Clear local TRT match and full offer; long form title crowds the form and address eyebrow wastes space."},{"name":"opus","score":7.2,"why":"TRT in Scottsdale headline matches ads; offer in form title with condition beside it."}]},"8":{"average":5.6,"graders":[{"name":"astra","score":5.9,"why":"Long capitalized headline delays the form, and unsupported lab timing undermines the clinical-method pitch."},{"name":"carbon","score":5,"why":"Boilerplate 'labs and goals' headline could be any clinic, and '6-8 week labs' breaks offer rules."},{"name":"fable","score":5.9,"why":"Four-line generic headline pushes the form down; offer buried in a parenthesis, off-offer lab timing below."},{"name":"opus","score":5.6,"why":"Three-line caps headline is abstract; the offer sits in fine print; 6-8 week number off-offer."}]}},"main-dark-value-stack":{"1":{"average":7.6,"graders":[{"name":"astra","score":7.7,"why":"Price is immediate beneath the athlete, but repeated price framing provides little connection to his energy concerns."},{"name":"carbon","score":7.6,"why":"Clear $0-to-start and $149 offer on mobile, though '50% off' discount copy clashes with the aspirational sprinter."},{"name":"fable","score":7.3,"why":"Price is clear but sits oddly under an aspirational photo, and the stack below repeats it."},{"name":"opus","score":7.7,"why":"Clear price headline over photo; dark stack below repeats price but argument holds together."}]},"2":{"average":7.4,"graders":[{"name":"astra","score":8.6,"why":"Energy and drive connect the athlete to the visitor; nearby conditional testing offer makes the next step concrete."},{"name":"carbon","score":8.1,"why":"Compelling midlife symptom hook and safe diagnostic CTA, though 'Less energy, less drive' contradicts the explosive sprinter."},{"name":"fable","score":6.9,"why":"Symptoms against the sprinter photo create a useful contrast; offer needs reading and TRT is absent."},{"name":"opus","score":6,"why":"'Less energy, less drive' fights the fit sprinter photo; TRT absent from headline."}]},"3":{"average":4.7,"graders":[{"name":"astra","score":4.9,"why":"Award headline barely connects with the athlete; generic booking form buries free testing until the button."},{"name":"carbon","score":3.1,"why":"Award brag clashes with the shirtless sprinter and hides the free testosterone test until the bottom button."},{"name":"fable","score":5,"why":"Award headline under a photo tells him nothing he gets; price shown without the free test."},{"name":"opus","score":5.8,"why":"Award headline generic under photo; $149 form subline lacks the prescribed condition."}]},"4":{"average":5.3,"graders":[{"name":"astra","score":5.6,"why":"Office-process headline underuses the athlete context and leaves treatment price below the first-screen form."},{"name":"carbon","score":5,"why":"Hides $149 pricing on mobile fold, splits 'In-Office' awkwardly over an outdoor sprinter, and prompts call reluctance."},{"name":"fable","score":5.5,"why":"Process headline fights the photo and gives no price until the section below."},{"name":"opus","score":5.3,"why":"Vague in-office headline; weakest reason to act; form subline adds nothing."}]},"5":{"average":7.7,"graders":[{"name":"astra","score":7.7,"why":"Identity framing fits the athlete and conditional test offer; checking levels remains a weak aspirational payoff."},{"name":"carbon","score":8.3,"why":"Best photo fit: 'Men Who Check Their Levels' suits the mature sprinter and transitions cleanly below fold."},{"name":"fable","score":7.3,"why":"Identity line fits the photo best and the offer is complete; headline remains soft on TRT."},{"name":"opus","score":7.4,"why":"Identity headline suits the athlete photo; free plus condition subline; distinct from competitors."}]},"6":{"average":8.3,"graders":[{"name":"astra","score":8.4,"why":"Distinctive conditional payment remains legible below the photo; repeated cost messaging contributes little personal motivation."},{"name":"carbon","score":8.4,"why":"Top offer clarity and unique pay-nothing hook, though desktop repeats '$0 unless prescribed, then $149' immediately underneath."},{"name":"fable","score":8.3,"why":"Clearest and most distinctive offer; pay-nothing line repeats heavily down the page and ignores the photo."},{"name":"opus","score":8,"why":"Strong risk reversal, but stack heading below repeats '$0 unless prescribed' nearly verbatim."}]},"7":{"average":7,"graders":[{"name":"astra","score":7.7,"why":"Local treatment and conditional testing are concrete; dense form title competes for scarce space beneath the photo."},{"name":"carbon","score":6.7,"why":"Strong local TRT match, but street address with unapproved Ste 101 fights the sprinter photo and repeats Scottsdale."},{"name":"fable","score":6.7,"why":"Good search match, complete offer; clunky form title and reviews section headed by an award."},{"name":"opus","score":7,"why":"Local TRT match and conditioned free offer; address eyebrow adds little on first screen."}]},"8":{"average":5.8,"graders":[{"name":"astra","score":6,"why":"Goals fit the athlete, but unsupported follow-up timing and treatment-choice language weaken the provider-led testing argument."},{"name":"carbon","score":5.2,"why":"Fits the sprinter photo, yet headline stays generic and '6-8 week labs' violates strict offer rules."},{"name":"fable","score":6.1,"why":"Labs and goals loosely fits the photo, but generic, and 6-8 week labs breaks the offer."},{"name":"opus","score":5.9,"why":"Abstract 'labs and goals' headline; '6-8 week labs' introduces a number outside the offer."}]}}}});
+  function scoreOf(id){var s=SCORES[id];if(!s||!s.graders||!s.graders.length)return null;
+    if(typeof s.average!=='number'){var t=0;s.graders.forEach(function(g){t+=g.score});s.average=Math.round(t/s.graders.length*10)/10}return s}
   PAGES.forEach(function(p){if(!p.top)p.rest=true});
-  PHOTO_FAMILIES.forEach(function(f){
-    var pick=PAGES.filter(function(p){return p.id===f.pick})[0];f.name=pick.name;
-    f.grp='photos';
-    if(f.panel)PAGES.push({id:'photos/'+f.panel,name:'Panel pick',fam:f.key,grp:'photos',short:'Panel',panel:f.panel,live:f.pick,full:f.name+' \u00b7 Panel pick'});
-    if(f.sets!==false)SETS.forEach(function(setName,k){PAGES.push({id:'photos/'+f.key+'-'+(k+1),name:'Set '+(k+1)+': '+setName,fam:f.key,grp:'photos',short:'Set '+(k+1),full:f.name+' \u00b7 Set '+(k+1)+': '+setName})});
-  });
+  GROUPS.forEach(function(G){G.fams.forEach(function(f){
+    var pick=PAGES.filter(function(p){return p.id===f.pick})[0];f.name=pick.name;f.grp=G.key;
+    f.dom=G.key==='photos'?f.key:G.key+'-'+f.key; // photo sub-group ids stay as they were (sub-<key>, fam-<key>)
+    var v=[],base={fam:f.key,grp:G.key,dom:f.dom,live:f.pick};
+    var add=function(o){for(var k in base)o[k]=base[k];v.push(o)};
+    if(G.key==='photos'){
+      if(f.panel)add({id:'photos/'+f.panel,name:'Panel pick',short:'Panel',panel:f.panel,full:f.name+' · Panel pick'});
+      if(f.sets!==false)SETS.forEach(function(setName,k){add({id:'photos/'+f.key+'-'+(k+1),name:'Set '+(k+1)+': '+setName,short:'Set '+(k+1),full:f.name+' · Set '+(k+1)+': '+setName,noCmp:true})});
+    }else COPY_SETS.forEach(function(setName,k){add({id:'copy/'+f.key+'-'+(k+1),name:'Copy '+(k+1)+': '+setName,short:'Copy '+(k+1),full:f.name+' · Copy '+(k+1)+': '+setName})});
+    v.forEach(function(o,k){o.ord=k});
+    v.sort(function(a,b){var x=scoreOf(a.id),y=scoreOf(b.id);if(x&&y&&x.average!==y.average)return y.average-x.average;if(!!x!==!!y)return x?-1:1;return a.ord-b.ord});
+    v.forEach(function(o){PAGES.push(o)});
+  })});
   var $=function(id){return document.getElementById(id)};
-  var menu=document.querySelector('aside'),rest=$('menu-rest'),more=$('more'),photos=$('menu-photos'),morePhotos=$('more-photos'),view=$('view'),frame=$('frame'),stage=$('stage'),view2=$('view2'),frame2=$('frame2');
+  var menu=document.querySelector('aside'),rest=$('menu-rest'),more=$('more'),view=$('view'),frame=$('frame'),stage=$('stage'),view2=$('view2'),frame2=$('frame2');
   var narrow=window.matchMedia('(max-width:899px)');
   var mode='phone';try{mode=localStorage.getItem('tutera_preview_mode')||'phone'}catch(e){}
   var cur=-1,cmp=false,side='A';
 
-  PHOTO_FAMILIES.forEach(function(f){
-    var b=document.createElement('button');b.type='button';b.className='sub';b.id='sub-'+f.key;b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls','fam-'+f.key);
+  GROUPS.forEach(function(G){G.fams.forEach(function(f){
+    var b=document.createElement('button');b.type='button';b.className='sub';b.id='sub-'+f.dom;b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls','fam-'+f.dom);
     b.innerHTML='<span class="chev" aria-hidden="true">&#9656;</span> <span>'+f.name+'<span class="sp" id="sp-'+f.grp+'-'+f.key+'"></span></span>';
-    var ul=document.createElement('ul');ul.className='menu sets';ul.id='fam-'+f.key;ul.hidden=true;
-    b.onclick=function(){openFam(f.key,ul.hidden)};
-    photos.appendChild(b);photos.appendChild(ul);
-  });
+    var ul=document.createElement('ul');ul.className='menu sets';ul.id='fam-'+f.dom;ul.hidden=true;
+    b.onclick=function(){openFam(f.dom,ul.hidden)};
+    $(G.box).appendChild(b);$(G.box).appendChild(ul);
+  })});
   PAGES.forEach(function(p){
     var li=document.createElement('li');if(p.panel)li.className='panel';
     li.innerHTML='<a href="#'+p.id+'"><img src="thumbs/'+p.id+'.jpg" alt="" loading="lazy" width="64" height="80"><span class="n">'+p.name+(p.panel?' <span class="tag">panel</span>':'')+(p.grp?' <span class="pm" hidden>picked &#10003;</span>':'')+'</span></a>';
     p.li=li;
-    $(p.top?'menu-top':p.rest?'menu-rest':'fam-'+p.fam).appendChild(li);
+    $(p.top?'menu-top':p.rest?'menu-rest':'fam-'+p.dom).appendChild(li);
   });
-  PHOTO_FAMILIES.forEach(function(f){
+  GROUPS.forEach(function(G){G.fams.forEach(function(f){
     var li=document.createElement('li'),k=document.createElement('button');k.type='button';k.className='keep';k.setAttribute('aria-pressed','false');
-    k.innerHTML='<span class="kb">live</span><span class="n">Keep live (no change)</span>';k.id='keep-'+f.grp+'-'+f.key;
-    k.onclick=function(){setPick(f.grp,f.key,'live',true)};li.appendChild(k);$('fam-'+f.key).appendChild(li);
-  });
+    k.innerHTML='<span class="kb">live</span><span class="n">'+G.keep+'</span>';k.id='keep-'+f.grp+'-'+f.key;
+    k.onclick=function(){setPick(f.grp,f.key,'live',true)};li.appendChild(k);$('fam-'+f.dom).appendChild(li);
+  })});
 
   // ---- picks (saved in this browser only)
   var PK='tutera_picks_v1',canSave=false,picks={};
@@ -278,12 +325,12 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     var single=p&&p.grp&&!cmp;b.forEach(function(x){x.hidden=!single});
     if(single){var on=getPick(p.grp,p.fam)===p.id;b.forEach(function(x){x.disabled=!canSave;x.setAttribute('aria-pressed',on)});
       $('pick').textContent=!canSave?"Can't save picks here":on?'Picked ✓':'Pick this one';$('mpick').textContent=!canSave?"Can't save":on?'Picked ✓':'Pick'}
-    if(p&&p.panel&&cmp){var v=getPick(p.grp,p.fam);
-      [['pickA',p.id,'Pick panel'],['pickB','live','Pick live']].forEach(function(a){var x=$(a[0]),on=v===a[1];x.disabled=!canSave;x.setAttribute('aria-pressed',on);x.textContent=!canSave?"Can't save picks here":on?'Picked ✓':a[2]})}
+    if(p&&canCmp(p)&&cmp){var v=getPick(p.grp,p.fam);
+      [['pickA',p.id,p.panel?'Pick panel':'Pick '+p.short],['pickB','live','Pick live']].forEach(function(a){var x=$(a[0]),on=v===a[1];x.disabled=!canSave;x.setAttribute('aria-pressed',on);x.textContent=!canSave?"Can't save picks here":on?'Picked ✓':a[2]})}
   }
   $('pick').onclick=$('mpick').onclick=function(){var p=PAGES[cur];if(p&&p.grp)setPick(p.grp,p.fam,p.id,true)};
-  $('pickA').onclick=function(){var p=PAGES[cur];if(p&&p.panel)setPick(p.grp,p.fam,p.id,true)};
-  $('pickB').onclick=function(){var p=PAGES[cur];if(p&&p.panel)setPick(p.grp,p.fam,'live',true)};
+  $('pickA').onclick=function(){var p=PAGES[cur];if(p&&canCmp(p))setPick(p.grp,p.fam,p.id,true)};
+  $('pickB').onclick=function(){var p=PAGES[cur];if(p&&canCmp(p))setPick(p.grp,p.fam,'live',true)};
   $('mypicks').onclick=function(){var pn=$('mppanel');pn.hidden=!pn.hidden;this.setAttribute('aria-expanded',!pn.hidden)};
   $('mpclear').onclick=function(){if(!canSave)return;if(window.confirm('Clear all your picks in this browser?')){picks={};try{localStorage.removeItem(PK)}catch(e){}refreshPicks()}};
   $('mpcopy').onclick=function(){
@@ -295,9 +342,13 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
 
   function toggle(btn,box,on){box.hidden=!on;btn.setAttribute('aria-expanded',on?'true':'false')}
   function expand(on){toggle(more,rest,on)}
-  function openFam(key,on){toggle($('sub-'+key),$('fam-'+key),on)}
+  function openFam(dom,on){toggle($('sub-'+dom),$('fam-'+dom),on)}
+  function grpOf(p){return GROUPS.filter(function(G){return G.key===p.grp})[0]}
+  // Panel picks and copy variants open beside their live page; numbered photo sets do not.
+  function canCmp(p){return !!(p&&p.grp&&!p.noCmp)}
+  function cmpKey(p){return p.panel||p.id}
   more.onclick=function(){expand(rest.hidden)};
-  morePhotos.onclick=function(){toggle(morePhotos,photos,photos.hidden)};
+  GROUPS.forEach(function(G){var b=$(G.btn),box=$(G.box);b.onclick=function(){toggle(b,box,box.hidden)}});
   function url(i){return 'pages/'+PAGES[i].id+'/'}
   function fit(fr,v,w,h){
     if(mode==='phone'){
@@ -332,31 +383,41 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
     if(i<0){document.body.classList.remove('viewing');document.title='Tutera TRT landing pages: previews';return}
     var p=PAGES[i];
     if(p.rest)expand(true);
-    if(p.fam){toggle(morePhotos,photos,true);openFam(p.fam,true)}
+    if(p.grp){var G=grpOf(p);toggle($(G.btn),$(G.box),true);openFam(p.dom,true)}
     if(view.getAttribute('src')!==url(i))view.setAttribute('src',url(i));
-    var canCmp=!!p.panel;if(!canCmp)cmp=false;
-    $('cmp').hidden=$('mcmp').hidden=!canCmp;$('cmp').setAttribute('aria-pressed',cmp);$('mcmp').setAttribute('aria-pressed',cmp);
+    var cc=canCmp(p);if(!cc)cmp=false;
+    $('cmp').hidden=$('mcmp').hidden=!cc;$('cmp').setAttribute('aria-pressed',cmp);$('mcmp').setAttribute('aria-pressed',cmp);
     $('flip').hidden=!cmp;$('mcmp').textContent=cmp?'Done':'Compare';$('cmp').textContent=cmp?'Close compare':'Compare with live';
     if(cmp){var live=PAGES.filter(function(q){return q.id===p.live})[0];
       if(view2.getAttribute('src')!=='pages/'+p.live+'/')view2.setAttribute('src','pages/'+p.live+'/');
-      $('capAl').textContent='Panel pick';$('capBl').textContent='Live: '+live.name;$('flipB').textContent='Live'}
+      $('capAl').textContent=p.panel?'Panel pick':p.name;$('capBl').textContent='Live: '+live.name;$('flipA').textContent=p.short;$('flipB').textContent='Live'}
     else{view2.removeAttribute('src')}
-    pickButtons();
+    pickButtons();showScore(p);
     var t=(p.full||p.name)+(cmp?' vs live':'');$('title').textContent=t;$('mtitle').textContent=t;
     $('open').href=url(i);
     document.title=(p.full||p.name)+' · Tutera previews';
     document.body.classList.add('viewing');
     layout();
   }
+  function showScore(p){
+    var s=p&&!cmp?scoreOf(p.id):null,txt=s?'Score '+s.average.toFixed(1)+'/10':'';
+    [$('score'),$('mscore')].forEach(function(b){b.hidden=!s;b.textContent=txt;b.setAttribute('aria-expanded','false')});$('scorepanel').hidden=true;
+    if(s){$('mscore').textContent='\u2605 '+s.average.toFixed(1);$('mscore').setAttribute('aria-label',txt)} // short form fits the phone bar
+    if(!s)return;$('sptitle').textContent=(p.full||p.name)+': '+s.average.toFixed(1)+' out of 10';
+    var ul=$('splist');ul.innerHTML='';s.graders.forEach(function(g){var li=document.createElement('li'),a=document.createElement('div'),w=document.createElement('div');
+      a.className='g';a.innerHTML='<span></span><span></span>';a.firstChild.textContent=g.name;a.lastChild.textContent=g.score+'/10';w.className='w';w.textContent=g.why||'';li.appendChild(a);li.appendChild(w);ul.appendChild(li)});
+  }
+  $('score').onclick=$('mscore').onclick=function(){var pn=$('scorepanel');pn.hidden=!pn.hidden;[$('score'),$('mscore')].forEach(function(b){b.setAttribute('aria-expanded',!pn.hidden)})};
+  $('spclose').onclick=function(){$('scorepanel').hidden=true;[$('score'),$('mscore')].forEach(function(b){b.setAttribute('aria-expanded','false')})};
   function go(d){var i=((cur<0?0:cur)+d+PAGES.length)%PAGES.length;location.hash=PAGES[i].id}
   function route(){
     var id=location.hash.slice(1),i=-1;
-    cmp=id.indexOf('compare=')===0;if(cmp){id='photos/'+id.slice(8);if(PAGES.filter(function(q){return q.id===id})[0]&&cur>=0&&PAGES[cur].id!==id)side='A'}
+    cmp=id.indexOf('compare=')===0;if(cmp){id=id.slice(8);if(id.indexOf('/')<0)id='photos/'+id;if(PAGES.filter(function(q){return q.id===id})[0]&&cur>=0&&PAGES[cur].id!==id)side='A'}
     PAGES.forEach(function(p,k){if(p.id===id)i=k});
     if(i<0&&!narrow.matches)i=0; // wide screens always show a page
     show(i);
   }
-  $('cmp').onclick=$('mcmp').onclick=function(){var p=PAGES[cur];if(!p||!p.panel)return;location.hash=cmp?p.id:'compare='+p.panel};
+  $('cmp').onclick=$('mcmp').onclick=function(){var p=PAGES[cur];if(!canCmp(p))return;location.hash=cmp?p.id:'compare='+cmpKey(p)};
   $('flipA').onclick=function(){setSide('A')};$('flipB').onclick=function(){setSide('B')};
   $('phone').onclick=function(){setMode('phone')};
   $('desktop').onclick=function(){setMode('desktop')};
