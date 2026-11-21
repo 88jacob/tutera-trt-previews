@@ -325,33 +325,31 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 /* INSET SAMPLE (alternative to the corner sample, Jacob 2026-11-20). Photo-block CSS only.
    Photos no longer bleed: each sits inside its section as a framed card (all four corners rounded), on the page's
    content grid (the same 1120px .wrap the stats band and Dr. Tutera section use), with padding around it.
-   The hero is unchanged.
+   The hero and the closing pull-up stay full-bleed (Jacob 2026-11-20: "i like this one for the end of the form"): edge-to-edge bookends, rounded cards in between.
    Blend pass (Jacob 2026-11-20: "you didn't blend the rounded corners well"): one 16px radius on every photo card, the same as
    the Dr. Tutera portrait panel; no drop shadows (they read as a muddy halo on the navy sections); on phones the card lines up
    with the text's 18px edge, navy fades reach full navy before the rounded bottom corners, and the light program section
    loses its navy fade (heading below the card, in navy type on white). */
 @media (min-width:860px){
-  .split{--gut:max(40px,calc((100% - 1084px) / 2));padding:64px var(--gut);column-gap:64px;min-height:600px}
-  .split .media img{border-radius:16px}
-  .split .head,.split .txt{padding-left:0;padding-right:0;max-width:none}
-  .split .txt{padding-top:24px}
-  .close .media img{-webkit-mask-image:none!important;mask-image:none!important;justify-self:stretch;width:100%}
+  .split:not(.close){--gut:max(40px,calc((100% - 1084px) / 2));padding:64px var(--gut);column-gap:64px;min-height:600px}
+  .split:not(.close) .media img{border-radius:16px}
+  .split:not(.close) .head,.split:not(.close) .txt{padding-left:0;padding-right:0;max-width:none}
+  .split:not(.close) .txt{padding-top:24px}
 }
 @media (min-width:860px) and (max-width:1199px){
-  .split{column-gap:48px}
+  .split:not(.close){column-gap:48px}
   .split h2{font-size:36px}
 }
 /* phone (below 860px): framed photo on the text's 18px edge. One photo fewer: "Sound familiar?" drops its kettlebell photo and
    shows its heading and list on sand, so the run reads photo, plain section, photo instead of photo-heading x3. */
 @media (max-width:859.98px){
-  .split{padding-top:18px}
-  .split.dark-vs,.split.close{background:var(--ink)}
+  .split:not(.close){padding-top:18px}
+  .split.dark-vs{background:var(--ink)}
   .split.sand{background:var(--sand)}
-  .split .media{margin:0 18px;border-radius:16px}
-  .split .head{left:16px;right:16px}
+  .split:not(.close) .media{margin:0 18px;border-radius:16px}
+  .split:not(.close) .head{left:16px;right:16px}
   /* navy sections: the fade is full navy over the last 10%, so the rounded bottom corners dissolve into the section */
   .split.dark-vs .media::after{background:linear-gradient(180deg,rgba(21,41,102,0) 40%,rgba(21,41,102,.86) 72%,var(--ink) 90%)}
-  .split.close .media::after{background:linear-gradient(180deg,rgba(21,41,102,0) 40%,rgba(21,41,102,.92) 80%,var(--ink) 92%)}
   /* sound familiar: no photo on phones */
   .split.sand{padding-top:0}
   .split.sand .media{height:auto;margin:0;border-radius:0;overflow:visible;background:none}
