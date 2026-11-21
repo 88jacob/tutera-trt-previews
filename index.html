@@ -70,6 +70,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
 .pm[hidden]{display:none}
 .menu li.picked a{box-shadow:inset 0 0 0 2px #d99a00}
 .sub .sp{color:#8a6100;font-weight:600;font-size:13px}
+.sub .bn{color:#5b6475;font-weight:500;font-size:13px}
 .keep{display:flex;gap:12px;align-items:center;width:100%;padding:8px;border:1px dashed #c9cfda;border-radius:10px;background:#fff;color:inherit;text-align:left;cursor:pointer}
 .keep:hover{background:#f3f5f8}
 .keep .kb{width:64px;height:40px;border-radius:6px;background:#f3f5f8;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5b6475;flex:none}
@@ -204,7 +205,7 @@ main{position:relative}
 <script>
 (function(){
   var PAGES=[
-    {id:'offer-hero',name:'Offer First',top:true},
+    {id:'offer-first-pageb',name:'Offer First',top:true},
     {id:'gameday',name:'Gameday Style',top:true},
     {id:'main-dark-value-stack',name:'Dark Value Stack',top:true},
     {id:'pageb-original',name:'Page B (original)'},
@@ -215,11 +216,14 @@ main{position:relative}
     {id:'hybrid',name:'Split Hero'},
     {id:'all-light',name:'All Light'},
     {id:'three-price-cards',name:'Three Price Cards'},
-    {id:'dark-value-stack',name:'Dark Value Stack (garage-gym hero)'}
+    {id:'dark-value-stack',name:'Dark Value Stack (garage-gym hero)'},
+    {id:'offer-hero',name:'Offer First (previous)'}
   ];
   // Option groups: each lets Jacob choose one option per page (or keep the live page); picks are stored per group + family
   // ("photos:offer-hero", "copy:offer-hero"). A family takes its page's current name, wherever that page sits in the menu.
   // Adding a family = one line in its group's list; adding a group = one GROUPS entry plus its menu button and box in the HTML.
+  // base:'<page id>' = the options were built on an earlier layout of the page (Offer First, Jacob 2026-11-20 moved to offer-first-pageb):
+  // the sub-group says so, compare opens beside that earlier page, and the earlier page's live score is not shown on Keep live.
   // liveIs:'panel' = the live page now uses the panel pick: the panel entry is tagged 'now live' and the Keep live row drops the old live page's score.
   // Photos: panel = site folder under pages/photos/ of the "Panel pick" variant (listed first, comparable with the live pick). sets:false = no numbered sets.
   var SETS=['Paddleboard','Gym chalk-up','Garage gym','Truck tailgate','Basketball','Tennis','Cafe','Basketball, film look'];
@@ -227,7 +231,7 @@ main{position:relative}
     {key:'value-stack',pick:'mixed-value-stack',panel:'value-stack-panel'},
     {key:'fable6-bold',pick:'fable6-bold',panel:'fable6-bold-panel'},
     {key:'best-of-both',pick:'hybrid',panel:'best-of-both-panel'},
-    {key:'offer-hero',pick:'offer-hero',panel:'offer-hero-panel'},
+    {key:'offer-hero',pick:'offer-first-pageb',base:'offer-hero',panel:'offer-hero-panel'},
     {key:'three-price-cards',pick:'three-price-cards',panel:'three-price-cards-panel'},
     {key:'dark-value-stack',pick:'dark-value-stack',panel:'dark-value-stack-panel'},
     {key:'gameday',pick:'gameday',panel:'gameday-panel',sets:false,liveIs:'panel'} // Jacob 2026-11-20 approved the panel (sprinter) hero; the live page now uses it
@@ -235,7 +239,7 @@ main{position:relative}
   // Copy: eight copy variants per Top pick, site folders pages/copy/<key>-<n>/; each is comparable with its live page.
   var COPY_SETS=['Price first','Symptoms first','Proof first','Process first','Identity first','Risk reversal first','Local clinic first','Method first'];
   var COPY_FAMILIES=[
-    {key:'offer-hero',pick:'offer-hero'},
+    {key:'offer-hero',pick:'offer-first-pageb',base:'offer-hero'},
     {key:'gameday',pick:'gameday'},
     {key:'main-dark-value-stack',pick:'main-dark-value-stack'}
   ];
@@ -261,13 +265,13 @@ main{position:relative}
   GROUPS.forEach(function(G){G.fams.forEach(function(f){
     var pick=PAGES.filter(function(p){return p.id===f.pick})[0];f.name=pick.name;f.grp=G.key;
     f.dom=G.key==='photos'?f.key:G.key+'-'+f.key; // photo sub-group ids stay as they were (sub-<key>, fam-<key>)
-    var v=[],base={fam:f.key,grp:G.key,dom:f.dom,live:f.pick};
+    var v=[],base={fam:f.key,grp:G.key,dom:f.dom,live:f.base||f.pick,onBase:!!f.base};
     var add=function(o){for(var k in base)o[k]=base[k];v.push(o)};
     if(G.key==='photos'){
       if(f.panel)add({id:'photos/'+f.panel,name:'Panel pick',short:'Panel',panel:f.panel,nowLive:f.liveIs==='panel',full:f.name+' · Panel pick'+(f.liveIs==='panel'?' (now live)':'')});
       if(f.sets!==false)SETS.forEach(function(setName,k){add({id:'photos/'+f.key+'-'+(k+1),name:'Set '+(k+1)+': '+setName,short:'Set '+(k+1),full:f.name+' · Set '+(k+1)+': '+setName,noCmp:true})});
     }else COPY_SETS.forEach(function(setName,k){add({id:'copy/'+f.key+'-'+(k+1),name:'Copy '+(k+1)+': '+setName,short:'Copy '+(k+1),full:f.name+' · Copy '+(k+1)+': '+setName})});
-    v.forEach(function(o,k){o.ord=k});
+    v.forEach(function(o,k){o.ord=k;if(f.base)o.full+=' (built on the previous layout)'});
     v.sort(function(a,b){var x=scoreOf(a.id),y=scoreOf(b.id);if(x&&y&&x.average!==y.average)return y.average-x.average;if(!!x!==!!y)return x?-1:1;return a.ord-b.ord});
     v.forEach(function(o){PAGES.push(o)});
   })});
@@ -279,7 +283,7 @@ main{position:relative}
 
   GROUPS.forEach(function(G){G.fams.forEach(function(f){
     var b=document.createElement('button');b.type='button';b.className='sub';b.id='sub-'+f.dom;b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls','fam-'+f.dom);
-    b.innerHTML='<span class="chev" aria-hidden="true">&#9656;</span> <span>'+f.name+'<span class="sp" id="sp-'+f.grp+'-'+f.key+'"></span></span>';
+    b.innerHTML='<span class="chev" aria-hidden="true">&#9656;</span> <span>'+f.name+(f.base?'<span class="bn"> · built on the previous '+f.name+' layout</span>':'')+'<span class="sp" id="sp-'+f.grp+'-'+f.key+'"></span></span>';
     var ul=document.createElement('ul');ul.className='menu sets';ul.id='fam-'+f.dom;ul.hidden=true;
     b.onclick=function(){openFam(f.dom,ul.hidden)};
     $(G.box).appendChild(b);$(G.box).appendChild(ul);
@@ -295,7 +299,7 @@ main{position:relative}
     k.innerHTML='<span class="kb">live</span><span class="n">'+(f.liveIs==='panel'?'Keep live (now the panel pick)':G.keep)+'</span>';k.id='keep-'+f.grp+'-'+f.key;
     k.onclick=function(){setPick(f.grp,f.key,'live',true)};li.appendChild(k);
     // A scored live page: Score chip on its Keep live row (opens the graders inline), and the row sits in score order.
-    var ls=f.liveIs?null:scoreOf(G.key+'/'+f.key+'-live'),before=null;
+    var ls=f.liveIs||f.base?null:scoreOf(G.key+'/'+f.key+'-live'),before=null;
     if(ls){li.className='kwrap';
       var c=document.createElement('button');c.type='button';c.className='score';c.textContent='Score '+ls.average.toFixed(1);
       c.setAttribute('aria-label','Live page score '+ls.average.toFixed(1)+' out of 10');c.setAttribute('aria-expanded','false');
@@ -417,10 +421,10 @@ main{position:relative}
     $('flip').hidden=!cmp;$('mcmp').textContent=cmp?'Done':'Compare';$('cmp').textContent=cmp?'Close compare':'Compare with live';
     if(cmp){var live=PAGES.filter(function(q){return q.id===p.live})[0];
       if(view2.getAttribute('src')!=='pages/'+p.live+'/')view2.setAttribute('src','pages/'+p.live+'/');
-      $('capAl').textContent=p.panel?'Panel pick':p.name;$('capBl').textContent='Live: '+live.name;$('flipA').textContent=p.short;$('flipB').textContent='Live'}
+      $('capAl').textContent=p.panel?'Panel pick':p.name;$('capBl').textContent=(p.onBase?'Built on: ':'Live: ')+live.name;$('flipA').textContent=p.short;$('flipB').textContent=p.onBase?'Previous':'Live';$('pickB').hidden=!!p.onBase}
     else{view2.removeAttribute('src')}
     pickButtons();showScore(p);
-    var t=(p.full||p.name)+(cmp?' vs live':'');$('title').textContent=t;$('mtitle').textContent=t;
+    var t=(p.full||p.name)+(cmp?(p.onBase?' vs '+byId(p.live).name:' vs live'):'');$('title').textContent=t;$('mtitle').textContent=t;
     $('open').href=url(i);
     document.title=(p.full||p.name)+' · Tutera previews';
     document.body.classList.add('viewing');
