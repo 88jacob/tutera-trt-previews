@@ -132,6 +132,8 @@
 #hd-lp .hd-logo { width: 128px; height: 30px; color: #fff; display: block; }
 #hd-lp .hd-call-pill { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; font-size: 14px; color: #fff; border: 1px solid #2E4A94; border-radius: 999px; padding: 8px 13px; white-space: nowrap; }
 #hd-lp .hd-call-pill .hd-i { width: 15px; height: 15px; color: var(--or2); }
+#hd-lp .hd-call-pill { min-height: 40px; }
+#hd-lp .hd-call-pill:hover { border-color: var(--or); }
 
 
 #hd-lp .hd-hero { position: relative; color: #fff; background-color: var(--ink); background-position: center 30%; background-size: cover; background-repeat: no-repeat; padding: 22px 0 30px; }
@@ -597,7 +599,9 @@
 #hd-lp .hd-ob-cph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%; }
 #hd-lp .hd-ob-cph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(21,41,102,0) 40%, rgba(21,41,102,.92) 88%, #152966 100%); }
 #hd-lp .hd-ob-close .hd-dk-final { position: relative; z-index: 1; margin-top: -58px; }
-#hd-lp .hd-ob-close .hd-form-card { margin-top: 18px; }
+#hd-lp .hd-ob-close .hd-form-card { margin-top: 28px; }
+/* Closing heading spacing (Jacob 2026-11-20: "increase the margin a small tad"): more air between heading, pay-nothing line and form. */
+#hd-lp .hd-ob-close .hd-lead { margin-top: 16px; }
 @media (min-width: 960px) {
   #hd-lp.hd-wide .hd-ob-close { padding: 96px 0; }
   #hd-lp.hd-wide .hd-ob-cph { position: absolute; height: auto; top: 0; bottom: 0; right: 0; left: max(50%, calc(100% - 880px), calc(max(36px, calc((100% - 1140px) / 2 + 36px)) + 524px)); }
@@ -606,7 +610,7 @@
   #hd-lp.hd-wide .hd-ob-close .hd-dk-final { display: block; margin-top: 0; }
   #hd-lp.hd-wide .hd-ob-close .hd-dk-final > .hd-wrap { max-width: 500px; margin: 0; }
   #hd-lp.hd-wide .hd-ob-close h2 { font-size: 36px; }
-  #hd-lp.hd-wide .hd-ob-close .hd-dk-final .hd-form-card { margin-top: 28px; }
+  #hd-lp.hd-wide .hd-ob-close .hd-dk-final .hd-form-card { margin-top: 36px; }
 }
 
 
@@ -640,6 +644,8 @@
 <header class="hd-top">
   <div class="hd-wrap hd-top-in">
     <img class="hd-logo" src="assets/ANMJivhPVQ6mXqTGMwQO86shmNc.1644d4fc.webp" alt="Tutera Medical" width="492" height="144">
+    <!-- PLACEHOLDER, GHL TRACKING NUMBER: (480) 555-0149 is not a real line (same placeholder as Gameday and Dark Value Stack). Oscar swaps it (search "5550149"). -->
+    <a class="hd-call-pill" href="tel:+14805550149" data-placeholder="ghl-tracking-number"><svg class="hd-i" aria-hidden="true"><use href="#i-phone"/></svg><span class="hd-cp-w">Call </span>(480) 555-0149</a>
   </div>
 </header>
 
@@ -703,7 +709,7 @@
     </div>
     <div class="hd-dk-rest">
     <div class="hd-steps">
-      <div class="hd-step"><span class="hd-step-n">1</span><div><b>Lab Work</b><span class="hd-t">In-office bloodwork at our Scottsdale clinic to establish your baseline.</span></div></div>
+      <div class="hd-step"><span class="hd-step-n">1</span><div><b>Book your free testosterone test</b><span class="hd-t">In-office bloodwork at our Scottsdale clinic to establish your baseline. You pay nothing unless a provider prescribes.</span></div></div>
       <div class="hd-step"><span class="hd-step-n">2</span><div><b>Consultation</b><span class="hd-t">Meet with your provider to discuss symptoms, goals, and health history.</span></div></div>
       <div class="hd-step"><span class="hd-step-n">3</span><div><b>Treatment Plan</b><span class="hd-t">Your provider reviews your results and builds your personalized TRT protocol, with follow-up labs at 6-8 weeks.</span></div></div>
     </div>
@@ -825,8 +831,8 @@
   <div class="hd-ob-cph"><img src="sec-pullup.jpg" alt="" width="880" height="1100" loading="lazy"></div>
   <div class="hd-dk-final">
   <div class="hd-wrap hd-center">
-    <h2>Ready to Take Control? <span class="hd-accent">Your consultation is free.</span></h2>
-    <p class="hd-lead">Fill in the form and a member of our team will confirm your consultation and answer any questions.</p>
+    <h2>Your testosterone test and consultation <span class="hd-accent">are free.</span></h2>
+    <p class="hd-lead">You pay nothing unless a provider prescribes.</p>
   </div>
   <div class="hd-wrap">
     <div class="hd-form-card">
@@ -866,7 +872,7 @@
     <img class="hd-logo" src="assets/ANMJivhPVQ6mXqTGMwQO86shmNc.1644d4fc.webp" alt="Tutera Medical" width="492" height="144">
     <p class="hd-foot-loc">Tutera Medical Scottsdale &middot; 8412 E Shea Blvd, Ste 101, Scottsdale, AZ 85260</p>
     <p><a href="https://tuteramedical.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a> &middot; <a href="https://tuteramedical.com/terms-of-service/" target="_blank" rel="noopener">Terms</a></p>
-    <p class="hd-disclaimer">Not intended to diagnose, treat, cure, or prevent any disease. You are charged only once a provider prescribes TRT; medication is prescribed as medically appropriate. &copy; 2026 Tutera Medical.</p>
+    <p class="hd-disclaimer">You are charged only once a provider prescribes TRT; medication is prescribed as medically appropriate. &copy; 2026 Tutera Medical.</p>
   </div>
 </footer>
 
