@@ -320,24 +320,21 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 <style>
 
 @media (min-width:860px){
-  .split:not(.close){--gut:max(40px,calc((100% - 1084px) / 2));padding:64px var(--gut);column-gap:64px;min-height:600px}
-  .split:not(.close) .media img{border-radius:16px}
-  .split:not(.close) .head,.split:not(.close) .txt{padding-left:0;padding-right:0;max-width:none}
-  .split:not(.close) .txt{padding-top:24px}
+  .split:not(.close):not(.dark-vs){--gut:max(40px,calc((100% - 1084px) / 2));padding:64px var(--gut);column-gap:64px;min-height:600px}
+  .split:not(.close):not(.dark-vs) .media img{border-radius:16px}
+  .split:not(.close):not(.dark-vs) .head,.split:not(.close):not(.dark-vs) .txt{padding-left:0;padding-right:0;max-width:none}
+  .split:not(.close):not(.dark-vs) .txt{padding-top:24px}
 }
 @media (min-width:860px) and (max-width:1199px){
-  .split:not(.close){column-gap:48px}
+  .split:not(.close):not(.dark-vs){column-gap:48px}
   .split h2{font-size:36px}
 }
 
 @media (max-width:859.98px){
-  .split:not(.close){padding-top:18px}
-  .split.dark-vs{background:var(--ink)}
+  .split:not(.close):not(.dark-vs){padding-top:18px}
   .split.sand{background:var(--sand)}
-  .split:not(.close) .media{margin:0 18px;border-radius:16px}
-  .split:not(.close) .head{left:16px;right:16px}
-  
-  .split.dark-vs .media::after{background:linear-gradient(180deg,rgba(21,41,102,0) 40%,rgba(21,41,102,.86) 72%,var(--ink) 90%)}
+  .split:not(.close):not(.dark-vs) .media{margin:0 18px;border-radius:16px}
+  .split:not(.close):not(.dark-vs) .head{left:16px;right:16px}
   
   .split.sand{padding-top:0}
   .split.sand .media{height:auto;margin:0;border-radius:0;overflow:visible;background:none}
@@ -354,6 +351,8 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
   .split.rev:not(.dark-vs):not(.close) h2{color:var(--ink)}
   .split.rev:not(.dark-vs):not(.close) .txt{padding-top:18px}
 }
+
+@media (min-width:860px){.fields .fwide{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -393,10 +392,12 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
           <input type="hidden" name="landing_url"><input type="hidden" name="referrer">
           <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
           <div class="fields">
-            <div><label for="n1">Name</label>
-            <input id="n1" name="name" type="text" autocomplete="name" required maxlength="120" pattern=".*\S.*" title="Enter your name."></div>
+            <div><label for="n1">First name</label>
+            <input id="n1" name="first_name" type="text" autocomplete="given-name" required maxlength="120" pattern=".*\S.*" title="Enter your first name."></div>
             <div><label for="p1">Phone</label>
             <input id="p1" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="30" pattern="\s*(\+?1[\s.\-]?)?\(?[0-9]{3}\)?[\s.\-]?[0-9]{3}[\s.\-]?[0-9]{4}\s*" title="Enter a 10-digit phone number, like 480-555-0199."></div>
+          <div class="fwide"><label for="e1">Email</label>
+            <input id="e1" name="email" type="email" inputmode="email" autocomplete="email" maxlength="160" title="Enter your email address."></div>
           </div>
           <p class="where"><span class="wtxt">Scottsdale clinic · 8412 E Shea Blvd</span> · <button class="chg" type="button" aria-controls="c1" aria-expanded="false">change</button></p>
           <div class="clinicrow"><label for="c1">Your clinic</label>
@@ -558,10 +559,12 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
         <input type="hidden" name="landing_url"><input type="hidden" name="referrer">
         <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
         <div class="fields">
-          <div><label for="n2">Name</label>
-          <input id="n2" name="name" type="text" autocomplete="name" required maxlength="120" pattern=".*\S.*" title="Enter your name."></div>
+          <div><label for="n2">First name</label>
+          <input id="n2" name="first_name" type="text" autocomplete="given-name" required maxlength="120" pattern=".*\S.*" title="Enter your first name."></div>
           <div><label for="p2">Phone</label>
           <input id="p2" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="30" pattern="\s*(\+?1[\s.\-]?)?\(?[0-9]{3}\)?[\s.\-]?[0-9]{3}[\s.\-]?[0-9]{4}\s*" title="Enter a 10-digit phone number, like 480-555-0199."></div>
+        <div class="fwide"><label for="e2">Email</label>
+          <input id="e2" name="email" type="email" inputmode="email" autocomplete="email" maxlength="160" title="Enter your email address."></div>
         </div>
         <p class="where"><span class="wtxt">Scottsdale clinic · 8412 E Shea Blvd</span> · <button class="chg" type="button" aria-controls="c2" aria-expanded="false">change</button></p>
         <div class="clinicrow"><label for="c2">Your clinic</label>

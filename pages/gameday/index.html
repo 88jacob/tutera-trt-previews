@@ -203,10 +203,12 @@ footer .lc{text-transform:none;letter-spacing:0;font-size:12.5px}
             <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium"><input type="hidden" name="utm_campaign"><input type="hidden" name="utm_term"><input type="hidden" name="utm_content">
             <input type="hidden" name="landing_url"><input type="hidden" name="referrer">
             <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
-            <label for="n1">Name</label>
-            <input id="n1" name="name" type="text" autocomplete="name" required maxlength="120" pattern=".*\S.*" title="Enter your name.">
+            <label for="n1">First name</label>
+            <input id="n1" name="first_name" type="text" autocomplete="given-name" required maxlength="120" pattern=".*\S.*" title="Enter your first name.">
             <label for="p1">Phone</label>
             <input id="p1" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="30" pattern="\s*(\+?1[\s.\-]?)?\(?[0-9]{3}\)?[\s.\-]?[0-9]{3}[\s.\-]?[0-9]{4}\s*" title="Enter a 10-digit phone number, like 480-555-0199.">
+            <label for="e1">Email</label>
+            <input id="e1" name="email" type="email" inputmode="email" autocomplete="email" maxlength="160" title="Enter your email address.">
             <p class="where"><span class="wtxt">Scottsdale clinic · 8412 E Shea Blvd</span><button class="chg" type="button" aria-controls="c1" aria-expanded="false">change</button></p>
             <div class="clinicrow"><label for="c1">Your clinic</label>
             <select id="c1" name="preferred_clinic">
