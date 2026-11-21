@@ -165,6 +165,13 @@ footer .lc{text-transform:none;letter-spacing:0;font-size:12.5px}
 /* desktop-only section buttons (Jacob 2026-11-20) */
 .dkcta{display:none}
 @media (min-width:960px){.dkcta{display:flex;max-width:420px;margin:32px auto 0;text-decoration:none}}
+/* Jacob picks 2026-11-20: clinic line in sentence case; award line under the Google rating with "Voted #1" bold; pay line at the closing. */
+.where{font-size:13.5px;font-weight:600;letter-spacing:0;text-transform:none;white-space:normal}
+.where .chg{letter-spacing:0;text-transform:none;font-weight:600}
+.final .payline{margin:14px auto 0;font-size:16px;font-weight:600;color:#fff}
+.award{margin-top:6px;font-size:12.5px;line-height:1.4;color:var(--soft);text-align:center;text-wrap:balance}
+.award b{color:#fff;font-weight:800}
+@media (min-width:960px){.award{text-align:left;font-size:13px}}
 </style>
 </head>
 <body>
@@ -223,6 +230,7 @@ footer .lc{text-transform:none;letter-spacing:0;font-size:12.5px}
         </div>
         <!-- GOOGLE RATING one-liner: count verified 2026-11-19 from the public Google listings: Scottsdale 422, Chandler 252, Glendale 200 = 874, all rated 5.0. -->
         <p class="rate"><span class="stars" aria-hidden="true">★★★★★</span> Rated 5.0 on Google <span>· 874 reviews</span></p>
+        <p class="award"><b>Voted #1</b> Hormone Therapy Clinic in Arizona by Ranking Arizona, 11 years in a row</p>
       </div>
     </div>
   </div>
@@ -322,6 +330,7 @@ footer .lc{text-transform:none;letter-spacing:0;font-size:12.5px}
   <div class="wrap">
     <p class="kick">Free first step</p>
     <h2>Check your testosterone <span class="acc">levels today.</span></h2>
+    <p class="payline">You pay nothing unless a provider prescribes.</p>
     <a class="btn" href="#book">Book My Free Testosterone Test</a>
   </div>
 </section>
