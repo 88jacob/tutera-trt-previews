@@ -49,6 +49,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column}
 .frame{background:#fff;border:1px solid #c9cfda;border-radius:12px;overflow:hidden;box-shadow:0 6px 24px rgba(20,30,50,.12);flex:none}
 .frame iframe{border:0;display:block;transform-origin:0 0;background:#fff}
 .empty{margin:auto;color:#7a8394}
+.tag.now{background:#2457c5}
 .tag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:#1f7a4d;color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;vertical-align:middle}
 .menu li.panel a{background:#eef8f2;box-shadow:inset 0 0 0 1px #bfe3cd}
 .menu li.panel a[aria-current="true"]{background:#dcefe4;box-shadow:inset 0 0 0 2px #1f7a4d}
@@ -219,6 +220,7 @@ main{position:relative}
   // Option groups: each lets Jacob choose one option per page (or keep the live page); picks are stored per group + family
   // ("photos:offer-hero", "copy:offer-hero"). A family takes its page's current name, wherever that page sits in the menu.
   // Adding a family = one line in its group's list; adding a group = one GROUPS entry plus its menu button and box in the HTML.
+  // liveIs:'panel' = the live page now uses the panel pick: the panel entry is tagged 'now live' and the Keep live row drops the old live page's score.
   // Photos: panel = site folder under pages/photos/ of the "Panel pick" variant (listed first, comparable with the live pick). sets:false = no numbered sets.
   var SETS=['Paddleboard','Gym chalk-up','Garage gym','Truck tailgate','Basketball','Tennis','Cafe','Basketball, film look'];
   var PHOTO_FAMILIES=[
@@ -228,7 +230,7 @@ main{position:relative}
     {key:'offer-hero',pick:'offer-hero',panel:'offer-hero-panel'},
     {key:'three-price-cards',pick:'three-price-cards',panel:'three-price-cards-panel'},
     {key:'dark-value-stack',pick:'dark-value-stack',panel:'dark-value-stack-panel'},
-    {key:'gameday',pick:'gameday',panel:'gameday-panel',sets:false}
+    {key:'gameday',pick:'gameday',panel:'gameday-panel',sets:false,liveIs:'panel'} // Jacob 2026-11-20 approved the panel (sprinter) hero; the live page now uses it
   ];
   // Copy: eight copy variants per Top pick, site folders pages/copy/<key>-<n>/; each is comparable with its live page.
   var COPY_SETS=['Price first','Symptoms first','Proof first','Process first','Identity first','Risk reversal first','Local clinic first','Method first'];
@@ -262,7 +264,7 @@ main{position:relative}
     var v=[],base={fam:f.key,grp:G.key,dom:f.dom,live:f.pick};
     var add=function(o){for(var k in base)o[k]=base[k];v.push(o)};
     if(G.key==='photos'){
-      if(f.panel)add({id:'photos/'+f.panel,name:'Panel pick',short:'Panel',panel:f.panel,full:f.name+' · Panel pick'});
+      if(f.panel)add({id:'photos/'+f.panel,name:'Panel pick',short:'Panel',panel:f.panel,nowLive:f.liveIs==='panel',full:f.name+' · Panel pick'+(f.liveIs==='panel'?' (now live)':'')});
       if(f.sets!==false)SETS.forEach(function(setName,k){add({id:'photos/'+f.key+'-'+(k+1),name:'Set '+(k+1)+': '+setName,short:'Set '+(k+1),full:f.name+' · Set '+(k+1)+': '+setName,noCmp:true})});
     }else COPY_SETS.forEach(function(setName,k){add({id:'copy/'+f.key+'-'+(k+1),name:'Copy '+(k+1)+': '+setName,short:'Copy '+(k+1),full:f.name+' · Copy '+(k+1)+': '+setName})});
     v.forEach(function(o,k){o.ord=k});
@@ -284,16 +286,16 @@ main{position:relative}
   })});
   PAGES.forEach(function(p){
     var li=document.createElement('li');if(p.panel)li.className='panel';
-    li.innerHTML='<a href="#'+p.id+'"><img src="thumbs/'+p.id+'.jpg" alt="" loading="lazy" width="64" height="80"><span class="n">'+p.name+(p.panel?' <span class="tag">panel</span>':'')+(p.grp?' <span class="pm" hidden>picked &#10003;</span>':'')+'</span></a>';
+    li.innerHTML='<a href="#'+p.id+'"><img src="thumbs/'+p.id+'.jpg" alt="" loading="lazy" width="64" height="80"><span class="n">'+p.name+(p.panel?' <span class="tag">panel</span>':'')+(p.nowLive?' <span class="tag now">now live</span>':'')+(p.grp?' <span class="pm" hidden>picked &#10003;</span>':'')+'</span></a>';
     p.li=li;
     $(p.top?'menu-top':p.rest?'menu-rest':'fam-'+p.dom).appendChild(li);
   });
   GROUPS.forEach(function(G){G.fams.forEach(function(f){
     var li=document.createElement('li'),k=document.createElement('button');k.type='button';k.className='keep';k.setAttribute('aria-pressed','false');
-    k.innerHTML='<span class="kb">live</span><span class="n">'+G.keep+'</span>';k.id='keep-'+f.grp+'-'+f.key;
+    k.innerHTML='<span class="kb">live</span><span class="n">'+(f.liveIs==='panel'?'Keep live (now the panel pick)':G.keep)+'</span>';k.id='keep-'+f.grp+'-'+f.key;
     k.onclick=function(){setPick(f.grp,f.key,'live',true)};li.appendChild(k);
     // A scored live page: Score chip on its Keep live row (opens the graders inline), and the row sits in score order.
-    var ls=scoreOf(G.key+'/'+f.key+'-live'),before=null;
+    var ls=f.liveIs?null:scoreOf(G.key+'/'+f.key+'-live'),before=null;
     if(ls){li.className='kwrap';
       var c=document.createElement('button');c.type='button';c.className='score';c.textContent='Score '+ls.average.toFixed(1);
       c.setAttribute('aria-label','Live page score '+ls.average.toFixed(1)+' out of 10');c.setAttribute('aria-expanded','false');
