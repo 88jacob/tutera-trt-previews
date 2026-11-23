@@ -348,7 +348,11 @@ footer{background:var(--ink2);color:#b9c4da;font-size:13px;padding:18px 0 96px}
 @media (min-width:860px){.award{text-align:left;margin-left:4px;color:#b9c4da;font-size:14px}.award b{color:#fff}}
 </style>
 <script>document.addEventListener("submit",function(e){e.preventDefault();e.stopImmediatePropagation();var f=e.target;var p=f.querySelector(".review-result");if(!p){p=document.createElement("p");p.className="review-result";p.setAttribute("role","status");f.appendChild(p)}p.textContent="Review build: not sent";},true);</script>
-<style>.review-result{padding:12px;border:2px solid #2596BE}</style><style id="final-layout">.final-pay{font-size:14px;line-height:1.4;font-weight:600;color:#152966;margin:4px 0 6px}.book .final-pay{color:#fff}#hd-lp .hd-form-card .final-pay{text-align:center}.fsub,#hd-lp .hd-form-card .hd-form-sub{white-space:normal}#rv-reviews .rv-g,.grev{grid-template-columns:1fr;text-align:center}#rv-reviews .rv-score{justify-self:center}@media(min-width:960px){#rv-reviews>.rv-wrap>.rv-quotes{grid-template-columns:repeat(2,minmax(0,1fr))}}h1 .acc{color:#2596BE}@media(max-width:859.98px){.hero{display:grid;grid-template-columns:minmax(0,1fr)}.hphoto{grid-area:1/1;height:auto;min-height:318px}.hphoto img{position:absolute;inset:0;height:100%}.hero>.wrap{display:contents}.htext{grid-area:1/1;position:relative;z-index:1;align-self:end;padding:132px 18px 48.875px}.hform{grid-area:2/1;margin:-30.875px 18px 0;min-width:0}}</style><style id="dark-option">
+<style>.review-result{padding:12px;border:2px solid #2596BE}</style><link rel="preload" as="font" href="../../../assets/7d93459d86585bfcdbb7.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="../../../assets/f4e80d9dfd374d02989b.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="../../../assets/9338e65fc077355c7a87.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="../../../assets/60bf0aba6526436f3930.woff2" type="font/woff2" crossorigin>
+<style id="final-layout">.final-pay{font-size:14px;line-height:1.4;font-weight:600;color:#152966;margin:4px 0 6px}.book .final-pay{color:#fff}#hd-lp .hd-form-card .final-pay{text-align:center}.fsub,#hd-lp .hd-form-card .hd-form-sub{white-space:normal}#rv-reviews .rv-g,.grev{grid-template-columns:1fr;text-align:center}#rv-reviews .rv-score{justify-self:center}@media(min-width:960px){#rv-reviews>.rv-wrap>.rv-quotes{grid-template-columns:repeat(2,minmax(0,1fr))}}h1 .acc{color:#2596BE}@media(min-width:860px){.hhead{overflow:clip}}@media(max-width:859.98px){.hero{display:grid;grid-template-columns:minmax(0,1fr)}.hphoto{grid-area:1/1;height:auto;min-height:318px}.hphoto img{position:absolute;inset:0;height:100%}.hero>.wrap{display:contents}.htext{grid-area:1/1;position:relative;z-index:1;align-self:end;padding:132px 18px 48.875px}.hform{grid-area:2/1;margin:-30.875px 18px 0;min-width:0}}@media(max-width:859.98px){.htext::after{content:"";position:absolute;left:0;right:0;top:100%;height:25.125px;background:var(--S);z-index:-1;pointer-events:none}}</style><style id="dark-option">
 :root{--S:#0d111c;--C:#080b13;--F:#141a28;--L:#27304a;--M:#b3bccd;--M2:#dde3ee}
 .top{background:var(--C)}
 .call{border-color:var(--L)}
@@ -391,6 +395,15 @@ footer{background:var(--F);color:var(--M)}
   .hform .card{max-width:540px}
 }
 @media(min-width:860px) and (max-width:1199px){.hero>.wrap,.hero>.wrap[class]{padding:0 28px}}
+</style><style id="nav-head">
+.hhead{display:none}
+@media(min-width:860px){
+  .top{background:#080b13}
+  .hero::before{display:none}
+  .hhead{display:block;position:absolute;inset:0;z-index:7;pointer-events:none;clip-path:inset(0 0 calc(100% - 60px) 0);
+    -webkit-mask-image:linear-gradient(90deg,#000 50%,transparent calc(50% + 150px));mask-image:linear-gradient(90deg,#000 50%,transparent calc(50% + 150px))}
+  .hhead img{position:absolute;top:0;left:calc(50% - 80px);height:100%;width:auto;max-width:none;transform:translateX(-66.7%)}
+}
 </style></head>
 <body>
 
@@ -404,6 +417,7 @@ footer{background:var(--F);color:var(--M)}
 
 <main>
 <div class="hero">
+  <div class="hhead" aria-hidden="true"><picture><source media="(min-width:860px)" srcset="../../../assets/b142b17a3bd0774bbbd1.png"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" width="2080" height="998" alt=""></picture></div>
   <div class="hphoto">
     <picture><source media="(min-width:860px)" srcset="../../../assets/ebf038d71586e718f715.jpg"><img src="../../../assets/410a3e37d6c77faa18c7.jpg" width="1200" height="998" alt="" fetchpriority="high"></picture>
   </div>
