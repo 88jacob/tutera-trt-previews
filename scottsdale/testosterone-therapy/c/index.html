@@ -638,11 +638,37 @@ footer{background:var(--F);color:var(--M)}
   });
   // Phone bar: shown only while no form is on screen, so it never covers the fields.
   var bar=document.getElementById('bar');
-  if('IntersectionObserver' in window){
-    var seen=new Set();
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?seen.add(e.target):seen.delete(e.target)});bar.classList.toggle('on',seen.size===0)},{threshold:.15});
-    forms.forEach(function(f){io.observe(f)});
-  }else{bar.classList.add('on')}
+    var visualForms = Array.prototype.map.call(forms, function (f) {
+      return f.closest('.hd-form-card,.book,.card') || f;
+    });
+    var sync = function () {
+      var viewport = window.visualViewport;
+      var top = viewport ? viewport.offsetTop : 0;
+      var left = viewport ? viewport.offsetLeft : 0;
+      var bottom = top + (viewport ? viewport.height : window.innerHeight);
+      var right = left + (viewport ? viewport.width : window.innerWidth);
+      var visible = visualForms.some(function (card) {
+        if (!card.isConnected) return false;
+        var rect = card.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && rect.bottom > top && rect.top < bottom && rect.right > left && rect.left < right;
+      });
+      var focused = visualForms.some(function (card) { return card.contains(document.activeElement); });
+      bar.classList.toggle('on', !visible && !focused);
+    };
+    if (typeof IntersectionObserver === 'function') {
+      var io = new IntersectionObserver(sync, { threshold: 0 });
+      visualForms.forEach(function (card) { io.observe(card); });
+    }
+    document.addEventListener('focusin', sync);
+    document.addEventListener('focusout', function () { setTimeout(sync, 0); });
+    window.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('scroll', sync, { passive: true });
+      window.visualViewport.addEventListener('resize', sync);
+    }
+    if (document.fonts) document.fonts.ready.then(sync);
+    sync();
 })();
 </script>
 </body>

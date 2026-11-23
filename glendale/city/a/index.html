@@ -860,22 +860,37 @@
       var open = (['Mon', 'Tue', 'Wed', 'Thu'].indexOf(wd) > -1 && hr >= 8 && hr < 17) || (wd === 'Fri' && hr >= 8 && hr < 12);
       var stc = bar.querySelector('.hd-st-call'); if (open && stc) stc.hidden = false;
     } catch (err) {}
-    if ('IntersectionObserver' in window) {
-      var seen = new Set(), typing = false;
-      var sync = function () {
-        seen.forEach(function (b) { if (!b.isConnected) seen.delete(b); });
-        bar.classList.toggle('hd-on', seen.size === 0 && !typing);
-      };
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { if (en.isIntersecting && en.intersectionRatio >= 0.99) seen.add(en.target); else seen.delete(en.target); });
-        sync();
-      }, { threshold: [0, 1] });
-      root.querySelectorAll('form.hd-mock button[type="submit"]').forEach(function (b) { io.observe(b); });
-      var inForm = function (ev) { return ev.target && ev.target.closest && ev.target.closest('form.hd-mock'); };
-      root.addEventListener('focusin', function (ev) { if (inForm(ev)) { typing = true; sync(); } });
-      root.addEventListener('focusout', function (ev) { if (inForm(ev)) { typing = false; setTimeout(sync, 0); } });
-      sync();
-    } else { bar.classList.add('hd-on'); }
+    var visualForms = Array.prototype.map.call(forms, function (f) {
+      return f.closest('.hd-form-card,.book,.card') || f;
+    });
+    var sync = function () {
+      var viewport = window.visualViewport;
+      var top = viewport ? viewport.offsetTop : 0;
+      var left = viewport ? viewport.offsetLeft : 0;
+      var bottom = top + (viewport ? viewport.height : window.innerHeight);
+      var right = left + (viewport ? viewport.width : window.innerWidth);
+      var visible = visualForms.some(function (card) {
+        if (!card.isConnected) return false;
+        var rect = card.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && rect.bottom > top && rect.top < bottom && rect.right > left && rect.left < right;
+      });
+      var focused = visualForms.some(function (card) { return card.contains(document.activeElement); });
+      bar.classList.toggle('hd-on', !visible && !focused);
+    };
+    if (typeof IntersectionObserver === 'function') {
+      var io = new IntersectionObserver(sync, { threshold: 0 });
+      visualForms.forEach(function (card) { io.observe(card); });
+    }
+    root.addEventListener('focusin', sync);
+    root.addEventListener('focusout', function () { setTimeout(sync, 0); });
+    window.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('scroll', sync, { passive: true });
+      window.visualViewport.addEventListener('resize', sync);
+    }
+    if (document.fonts) document.fonts.ready.then(sync);
+    sync();
   }
 })();
 
